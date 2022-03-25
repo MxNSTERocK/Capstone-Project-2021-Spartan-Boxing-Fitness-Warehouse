@@ -75,9 +75,8 @@ if (count($_POST) > 0) {
 					unset($_SESSION['forgot']);
 				}
 
-				$_SESSION['status'] = "Your Password has been successfully changed";
-				$_SESSION['status_code'] = "success";
-				header("Location: ../login_member.php");
+				$_SESSION['hooray'] = "Your Password has been successfully changed";
+				header("Location: ../login.php");
 				die;
 			}
 			break;
@@ -116,7 +115,7 @@ function save_password($password)
 	$hashed = md5($password);
 	$email = addslashes($_SESSION['forgot']['email']);
 
-	$query = "UPDATE tbl_customer SET password = '$hashed' where email = '$email' limit 1";
+	$query = "UPDATE tbl_admin SET password = '$hashed' where email = '$email' limit 1";
 	mysqli_query($con, $query);
 }
 
@@ -126,7 +125,7 @@ function valid_email($email)
 
 	$email = addslashes($email);
 
-	$query = "SELECT * from tbl_customer where email = '$email' limit 1";
+	$query = "SELECT * from tbl_admin where email = '$email' limit 1";
 	$result = mysqli_query($con, $query);
 	if ($result) {
 		if (mysqli_num_rows($result) > 0) {
@@ -292,8 +291,6 @@ function is_code_correct($code)
 											<input type="submit" value="Next" class="form-control form-control-user btn-user btn-block" style="background-color:gray">
 										</div>
 										<br><br>
-										<!-- next -->
-										<!-- <div><a href="../login_member.php">Login</a></div> -->
 									</form>
 
 								</div>
@@ -340,7 +337,7 @@ function is_code_correct($code)
 											<div class="container">
 												<input type="submit" value="Next" class="form-control form-control-user" style="background-color:gray">
 											</div>
-											<a href="../login_member.php">
+											<a href="../login.php">
 												<!-- <input type="button" value="Start Over"> -->
 											</a>
 											<br><br>

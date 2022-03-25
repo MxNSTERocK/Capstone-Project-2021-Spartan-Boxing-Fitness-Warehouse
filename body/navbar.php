@@ -2,7 +2,7 @@
 <link href="css/material-dashboard.css" rel="stylesheet">
 
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.php">
@@ -10,7 +10,7 @@
         <i class="fas fa-laugh-wink"></i>
     </div> -->
         <div class="sidebar-brand-text mx-0">
-            <h6><?= Title?></h6>
+            <h6><?= Title ?></h6>
         </div>
     </a>
 
@@ -106,7 +106,7 @@
 
     <div class="sidebar-card d-none d-lg-flex">
         <img class="sidebar-card-illustration mb-6" src="img/spartan.jpg" style="max-width: 100%;">
-        <p class="text-center mb-3"><strong><?= Title?></strong></p>
+        <p class="text-center mb-3"><strong><?= Title ?></strong></p>
         <a class="btn btn-primary btn-sm" href="https://web.facebook.com/search/top?q=spartan%20boxing%20and%20fitness%20warehouse"><i class="fab fa-facebook-f"></i></a>
     </div>
 
@@ -181,10 +181,10 @@
 
                             <?php
                             $date = "SELECT * FROM tbl_membership WHERE membership_end >= DATE(now())AND membership_end <= DATE_ADD(DATE(now()), INTERVAL 3 DAY)AND notifications!='Yes'";
-                         
+
                             $query_run = mysqli_query($connection, $date);
                             $row = mysqli_num_rows($query_run);
-                            
+
                             echo '<small> ' . $row . ' </small>';
                             ?>
                         </span>
@@ -195,42 +195,42 @@
                             Alerts Center
                         </h6>
                         <br>
-                        
-                                    <center>
-                                    <?php
-                                    date_default_timezone_set('Asia/manila');
-                                    echo "Today is " . date("M-d-Y") . "<br>";
-                                    ?>
-                                    </center>
-                                    <hr>
 
-                            <div>
-
-                                <span class="small text-gray-1000">
-
-                                 <?php
-                                 //$_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-                                 
-                                    $date = "SELECT * FROM tbl_membership WHERE membership_end >= DATE(now())AND membership_end <= DATE_ADD(DATE(now()), INTERVAL 3 DAY) AND notifications!='Yes'";
-                         
-                                    $query_run = mysqli_query($connection, $date);
-                                    $row = mysqli_num_rows($query_run);
-                                    foreach ($query_run as $row) {
-                                        // echo '<small>' . $row . ' </small>'; 
-                                    ?>
-                                </span>
-                                
-                                    <center><a href="email.php?id=<?=$row['ID']?>&emails=<?=$row['emails']?>"><?php echo $row['emails']; ?><br></center>
+                        <center>
                             <?php
-                                    }
+                            date_default_timezone_set('Asia/manila');
+                            echo "Today is " . date("M-d-Y") . "<br>";
                             ?>
-                            
-                            </div>
+                        </center>
+                        <hr>
+
+                        <div>
+
+                            <span class="small text-gray-1000">
+
+                                <?php
+                                //$_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+
+                                $date = "SELECT * FROM tbl_membership WHERE membership_end >= DATE(now())AND membership_end <= DATE_ADD(DATE(now()), INTERVAL 3 DAY) AND notifications!='Yes'";
+
+                                $query_run = mysqli_query($connection, $date);
+                                $row = mysqli_num_rows($query_run);
+                                foreach ($query_run as $row) {
+                                    // echo '<small>' . $row . ' </small>'; 
+                                ?>
+                            </span>
+
+                            <center><a href="email.php?id=<?= $row['ID'] ?>&emails=<?= $row['emails'] ?>"><?php echo $row['emails']; ?><br></center>
+                        <?php
+                                }
+                        ?>
+
+                        </div>
 
                         <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                     </div>
                 </li>
-                
+
                 <div class="topbar-divider d-none d-sm-block"></div>
 
                 <!-- Nav Item - User Information -->
@@ -238,14 +238,28 @@
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="mr-2 d-none d-lg-inline text-gray-600 small">
 
-                        <?php echo $_SESSION['username']; ?>
+                            <?php echo $_SESSION['username']; ?>
 
                         </span>
-                        <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+
+                        <?php
+                        $firstname = $_SESSION['username'];
+
+                        $query = "SELECT * FROM tbl_admin WHERE email = '$firstname' ";
+                        $query_run = mysqli_query($connection, $query);
+                        ?>
+
+                        <?php
+                         if (mysqli_num_rows($query_run) > 0) {
+                         while ($row = mysqli_fetch_assoc($query_run)) { ?>
+
+                        <!-- <img class="img-profile rounded-circle" src="img/undraw_profile.svg"> -->
+                        <img class="img-profile rounded-circle" src="img/customer_image/<?php echo $row['image'] ?>" height="50" width="50" />
+                        <?php }}?>
                     </a>
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="profile.php">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Profile
                         </a>

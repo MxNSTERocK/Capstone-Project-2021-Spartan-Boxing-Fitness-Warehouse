@@ -52,26 +52,24 @@ include('body/navbar.php');
                             <br>
                             <input type="date" name="edit_membership_start" value="<?php echo $row['membership_start'] ?>" class="form-control">
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label>End</label>
                             <br>
                             <input type="date" name="edit_membership_end" value="<?php echo $row['membership_end'] ?>" class="form-control">
-                        </div>
+                        </div> -->
 
                         <div class="row">
                             <div class="col-md-6 col-xs-6">
                                 <label>Membership Type:</label>
                                 <label class="container">
-                                    <input type="radio" name="type" value="Annual" 
-                                    <?php if ($row['type'] == "Annual") {
-                                        echo "checked";
-                                        } ?> />Annual
+                                    <input type="radio" name="type" value="Annual" <?php if ($row['type'] == "Annual") {
+                                                                                        echo "checked";
+                                                                                    } ?> />Annual
                                 </label>
                                 <label class="container">
-                                <input type="radio" name="type" value="Senior/Student" 
-                                    <?php if ($row['type'] == "Senior/Student") {
-                                        echo "checked";
-                                        } ?> />Senior/Student
+                                    <input type="radio" name="type" value="Senior/Student" <?php if ($row['type'] == "Senior/Student") {
+                                                                                                echo "checked";
+                                                                                            } ?> />Senior/Student
                                 </label>
                             </div>
                             <div class="col-md-6 col-xs-6">

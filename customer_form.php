@@ -1,5 +1,5 @@
 <?php
-include('membership_security.php');
+include('security.php');
 
 include('body_customer/cheader.php');
 include('body_customer/cnavbar.php');
@@ -16,7 +16,7 @@ include('body_customer/cnavbar.php');
     }
 
     legend {
-        background-color: #54b87f;
+        background-color: #5bc0de;
         color: white;
         padding: 1px 5px 10px 20px 40px 80px 100px;
     }
@@ -45,9 +45,9 @@ include('body_customer/cnavbar.php');
                     </div>
 
                     <?php
-                    $firstname = $_SESSION['firstname'];
+                    $firstname = $_SESSION['username'];
                     
-                    $query = "SELECT * FROM tbl_customer WHERE email = '$firstname' ";
+                    $query = "SELECT * FROM tbl_admin WHERE email = '$firstname' ";
                     $fecth_run = mysqli_query($connection, $query);
 
                     while($row = mysqli_fetch_array($fecth_run)) {
@@ -59,7 +59,7 @@ include('body_customer/cnavbar.php');
                                 <legend>Personal Information</legend>
                                 <div class="form-group">
                                     <label>Id</label>
-                                    <input type="number" class="form-control" name="ID" value="<?php echo $row['id']; ?>"  readonly>
+                                    <input type="number" class="form-control" name="ID" value="<?php echo $row['ID']; ?>"  readonly>
                                 </div>
                                 <?php 
                     }
@@ -112,7 +112,7 @@ include('body_customer/cnavbar.php');
                                         <input name="checkout" type="date" class="form-control">
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-success" name="submit">Submit</button>
+                                <button type="submit" class="btn btn-info" name="submit">Submit</button>
                             </fieldset>
                         </form>
                     </div>

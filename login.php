@@ -20,17 +20,33 @@ include('body/header.php');
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Administrator Login</h1>
                                     <?php
-                                    if (isset($_SESSION['status'])) {
+                                    if (isset($_SESSION['error'])) {
                                         echo "
-						<div class='alert alert-danger alert-dismissible' style='background:#389ced;color:#fff'>
+						<div class='alert alert-danger alert-danger' style='background:red;color:#fff'>
 						  <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
 						  <h5><i class='icon fa fa-warning'></i>
-						  " . $_SESSION['status'] . "</h5>
-						</div>";
-                                        unset($_SESSION['status']);
+						  " . $_SESSION['error'] . "</h5>
+						</div>
+					  ";
+                                        unset($_SESSION['error']);
+                                    }
+                                    if (isset($_SESSION['hooray'])) {
+                                        echo "
+						<div class='alert alert-danger alert-success' style='background: #198754;color:#fff'>
+						  <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>
+						  <h5><i class='icon fa fa-warning'></i>
+						  " . $_SESSION['hooray'] . "</h5>
+						</div>
+					  ";
+                                        unset($_SESSION['hooray']);
                                     }
                                     ?>
+
                                 </div>
+
+                                <script>
+                                    $('.alert').alert()
+                                </script>
 
                                 <form class="user" action="code.php" method="POST">
                                     <div class="form-group">
@@ -40,14 +56,19 @@ include('body/header.php');
                                         <input type="password" name="password" id="valid" class="form-control form-control-user" placeholder="Enter your password" pattern="^\S+$" minlength="8" autofocus required>
                                         <span id="valid" class="validity"></span>
                                     </div>
-                                    <hr>
+
+                                    <a href="forgot/forgot.php">
+                                        <center>Forgot Password</center>
+                                    </a>
+
                                     <button type="submit" name="login_btn" class="btn btn-primary btn-user btn-block">
                                         Login </button>
                                 </form>
-                                <br>
-                                <a href="login_member.php">
-                                    <center>Login as Member</center>
-                                </a>
+                                <p>
+                                    <a href="register.php">
+                                        <center>Click here to register!</center>
+                                    </a>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -56,3 +77,5 @@ include('body/header.php');
         </div>
     </div>
 </div>
+
+<?php include('body/script.php') ?>

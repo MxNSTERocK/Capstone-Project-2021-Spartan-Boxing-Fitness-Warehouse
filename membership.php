@@ -79,10 +79,10 @@ include('body/navbar.php');
                                     <input type="radio" name="type" value="Senior/Student" required />Senior/Student
                                 </label>
                             </div>
-                            <div class="col-md-6 col-xs-6">
+                            <!-- <div class="col-md-6 col-xs-6">
                                 <label>Import Picture</label>
                                 <input type="file" name="image" class="form-control-file" required>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="form-group">
                             <label>Note/Comment</label>
@@ -103,6 +103,7 @@ include('body/navbar.php');
     <div class="container-fluid">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
+            <h4 class="m-2 font-weight-bold text-primary">Membership</h4> 
                 <h6 class="m-0 font-weight-bold text-success">
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addmember">
                         <i class="fa fa-user-plus"></i>
@@ -173,8 +174,7 @@ include('body/navbar.php');
         </div>
     </div>
     </div>
-    </div>
-    </div>
+
 
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>

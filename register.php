@@ -176,7 +176,7 @@ session_start();
                                         <hr>
                                         <p>
                                             Already having an account?
-                                            <a href="login_member.php"> Login Here! </a>
+                                            <a href="login.php"> Login Here! </a>
                                         </p>
                                     </form>
                                 </div>

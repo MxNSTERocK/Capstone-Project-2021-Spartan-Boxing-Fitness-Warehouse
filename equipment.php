@@ -23,31 +23,32 @@ include('body/navbar.php');
     <h4 class="m-2 font-weight-bold text-primary">Inventory Form</h4>
     <div class="card shadow mb-4">
         <div class="container">
-        <form action="code.php" method="POST">
-            <br>
-            <div class="row">
-                <div class="col-md-4 col-xs-6">
-                    <label>Equipment</label>
-                    <input type="text" class="form-control" name="equipment" placeholder="Equipment">
+            <form action="code.php" method="POST">
+                <br>
+                <div class="row">
+                    <div class="col-md-4 col-xs-6">
+                        <label>Equipment</label>
+                        <input type="text" class="form-control" name="equipment" placeholder="Equipment">
+                    </div>
+                    <div class="col-md-4 col-xs-6">
+                        <label>Quantity</label>
+                        <input type="number" class="form-control" name="pieces" placeholder="Quantity">
+                    </div>
+                    <div class="col-md-4 col-xs-6">
+                        <label>Date</label>
+                        <input type="date" class="form-control" name="data_added" placeholder="Date">
+                    </div>
                 </div>
-                <div class="col-md-4 col-xs-6">
-                    <label>Quantity</label>
-                    <input type="number" class="form-control" name="pieces" placeholder="Quantity">
+                <div class="row">
+                    <div class="col-md-12 col-xs-12" <label>Note</label>
+                        <textarea class="form-control" rows="3" name="note" placeholder="Place put note here"></textarea>
+                    </div>
                 </div>
-                <div class="col-md-4 col-xs-6">
-                    <label>Date</label>
-                    <input type="date" class="form-control" name="data_added" placeholder="Date">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 col-xs-12" <label>Note</label>
-                    <textarea class="form-control" rows="3" name="note" placeholder="Place put note here"></textarea>
-                </div>
-            </div>
-            <hr>
-            <button type="submit" name="add_equipment" class="btn btn-success" style="float: right;">Save</button>
-        </form>
-    </div>
+                <br>
+                <button type="submit" name="add_equipment" class="btn btn-success" style="float: right;">Save</button>
+
+            </form>
+        </div>
     </div>
 </div>
 

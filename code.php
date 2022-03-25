@@ -11,28 +11,22 @@ if (isset($_POST['registerbtn'])) {
     $password = mysqli_real_escape_string($connection, $_POST['password']);
     $confirmpassword = mysqli_real_escape_string($connection, $_POST['confirmpassword']);
     $status = mysqli_real_escape_string($connection, $_POST['status']);
+    $firstname = mysqli_real_escape_string($connection, $_POST['firstname']);
+    $lastname = mysqli_real_escape_string($connection, $_POST['lastname']);
+    $contact = mysqli_real_escape_string($connection, $_POST['contact']);
+    $image = mysqli_real_escape_string($connection, $_FILES['image']['name']);
 
-    $pattern = "/^\s+|[\s]+$/";
-    // $pattern = "/^\S+$/"; 
-    if (preg_match($pattern, $username) == 0) {
-        $username_validation = "Valid";
-    } else {
-        $username_validation = "Invalid";
-    }
-    if (preg_match($pattern, $email) == 0) {
-        $email_validation = "Valid";
-    } else {
-        $email_validation = "Invalid";
-    }
-    if (preg_match($pattern, $password) == 0) {
-        $password_validation = "Valid";
-    } else {
-        $password_validation = "Invalid";
-    }
+    $hashed = md5($password);
+    $status = 1;
 
-    if ($username_validation == "Valid" && $email_validation == "Valid" && $password_validation == "Valid") {
+    $allowed_extension = array('gif', 'png', 'jpg', 'jpeg');
+    $filename = $_FILES['image']['name'];
+    $file_extension = pathinfo($filename, PATHINFO_EXTENSION);
 
-        $hashed = md5($password);
+    if (!in_array($file_extension, $allowed_extension)) {
+        $_SESSION['message'] = "Invalid File Format";
+        header('location: admin.php');
+    } else {
 
         $email_query = "SELECT * FROM tbl_admin WHERE email='$email'";
         $email_query_run = mysqli_query($connection, $email_query);
@@ -41,13 +35,14 @@ if (isset($_POST['registerbtn'])) {
             $_SESSION['message'] = "Email Already Exist";
             header('location: admin.php');
         } else {
+            $level = 'admin';
 
             if ($password === $confirmpassword) {
-
-                $query = "INSERT INTO tbl_admin(username,email,password) VALUES ('$username','$email','$hashed')";
+                $query = "INSERT INTO tbl_admin(username,email,password,level,status,firstname,lastname,contact,image) VALUES ('$username','$email','$hashed','$level','$status','$firstname','$lastname','$contact','$image')";
                 $query_run = mysqli_query($connection, $query);
             }
             if ($query_run) {
+                move_uploaded_file($_FILES['image']['tmp_name'], "img/customer_image/" . $_FILES['image']['name']);
                 $_SESSION['status'] = "Admin Profile Added";
                 header('location: admin.php');
             } else {
@@ -55,11 +50,9 @@ if (isset($_POST['registerbtn'])) {
                 header('location: admin.php');
             }
         }
-    } else {
-        $_SESSION['message'] = "Error in Validation";
-        header('location: admin.php');
     }
 }
+
 
 //for admin update
 
@@ -69,6 +62,9 @@ if (isset($_POST['updatebtn'])) {
     $username = mysqli_real_escape_string($connection, $_POST['username']);
     $password = mysqli_real_escape_string($connection, $_POST['password']);
     $email = mysqli_real_escape_string($connection, $_POST['email']);
+    $firstname = mysqli_real_escape_string($connection, $_POST['firstname']);
+    $lastname = mysqli_real_escape_string($connection, $_POST['lastname']);
+    $contact = mysqli_real_escape_string($connection, $_POST['contact']);
 
     $pattern = "/^\s+|[\s]+$/";
     if (preg_match($pattern, $username) == 0) {
@@ -89,7 +85,7 @@ if (isset($_POST['updatebtn'])) {
 
     if ($username_validation == "Valid" && $email_validation == "Valid" && $password_validation == "Valid") {
 
-        $query = "UPDATE tbl_admin SET username='$username', email='$email', password='$password' WHERE ID='$id' "; // password remove
+        $query = "UPDATE tbl_admin SET username='$username', email='$email' ,firstname='$firstname' ,lastname='$lastname', contact='$contact' WHERE ID='$id' "; // password remove
         $query_run = mysqli_query($connection, $query);
 
         if ($query_run) { // query condition
@@ -107,27 +103,77 @@ if (isset($_POST['updatebtn'])) {
 
 // for administrator login
 
+// if (isset($_POST['login_btn'])) {
+
+//     $email = mysqli_real_escape_string($connection, $_POST['email']);
+//     $password = mysqli_real_escape_string($connection, $_POST['password']);
+//     $hashed = md5($password);
+
+//     if (!empty($email) || !empty($password)) {
+
+//         $query = "SELECT * FROM tbl_admin WHERE email='$email' AND password='$hashed' LIMIT 1";
+//         $query_run = mysqli_query($connection, $query);
+//         $status = mysqli_fetch_array($query_run);
+
+//         if ($status['status'] ==  1) {
+//             $_SESSION['username'] = $email;
+//             header('location: dashboard.php');
+//         } else {
+//             $_SESSION['message'] = "Invalid Credential";
+//             header('location: login.php');
+//         }
+//     }
+// }
+
+// /////////////////////////////
+
 if (isset($_POST['login_btn'])) {
 
     $email = mysqli_real_escape_string($connection, $_POST['email']);
     $password = mysqli_real_escape_string($connection, $_POST['password']);
     $hashed = md5($password);
 
-    if (!empty($email) || !empty($password)) {
 
-        $query = "SELECT * FROM tbl_admin WHERE email='$email' AND password='$hashed' LIMIT 1";
-        $query_run = mysqli_query($connection, $query);
-        $status = mysqli_fetch_array($query_run);
+    $login = mysqli_query($connection, "SELECT * FROM tbl_admin WHERE email='$email' AND password='$hashed'");
+    $cek = mysqli_num_rows($login);
 
-        if ($status['status'] ==  1) {
+    if ($cek > 0) {
+
+        $data = mysqli_fetch_assoc($login);
+
+        if ($data['level'] == "admin") {
+
             $_SESSION['username'] = $email;
-            header('location: dashboard.php');
-        } else {
-            $_SESSION['message'] = "Invalid Credential";
-            header('location: login.php');
+            $_SESSION['level'] = "admin";
+            header("location:dashboard.php");
+        } else if ($data['level'] == "customer") {
+            $_SESSION['username'] = $email;
+            $_SESSION['level'] = "customer";
+            header("location:customer.php");
         }
+        // else if($data['level']=="pengurus"){
+        // 	$_SESSION['username'] = $username;
+        // 	$_SESSION['level'] = "pengurus";
+        // 	header("location:halaman_pengurus.php");
+
+        // }
+        else {
+            // $_SESSION['error'] = "Invalid Credential";
+            // header("location:login.php");
+        }
+    } else {
+        $_SESSION['error'] = "Invalid Credential";
+        header("location:login.php");
     }
 }
+
+// ////////////////////////////
+
+
+
+
+
+
 
 // For admin Logout
 
@@ -150,13 +196,13 @@ if (isset($_POST['register'])) {
     $email = mysqli_real_escape_string($connection, $_POST['emails']);
     $contact = mysqli_real_escape_string($connection, $_POST['contact']);
     $membership_start = mysqli_real_escape_string($connection, $_POST['membership_start']);
-    $newEndingDate = date("Y-m-d", strtotime(date("Y-m-d", strtotime($membership_start)) . " + 365 day")); 
+    $newEndingDate = date("Y-m-d", strtotime(date("Y-m-d", strtotime($membership_start)) . " + 365 day"));
     // $membership_end = mysqli_real_escape_string($connection, $_POST['membership_end']);
     $type = mysqli_real_escape_string($connection, $_POST['type']);
     $note = mysqli_real_escape_string($connection, $_POST['note']);
     $image = mysqli_real_escape_string($connection, $_FILES['image']['name']);
 
-    $allowed_extension = array('gif', 'png', 'jpg', 'jpeg'); 
+    $allowed_extension = array('gif', 'png', 'jpg', 'jpeg');
     $filename = $_FILES['image']['name'];
     $file_extension = pathinfo($filename, PATHINFO_EXTENSION);
 
@@ -201,7 +247,7 @@ if (isset($_POST['update'])) {
     $email = mysqli_real_escape_string($connection, $_POST['edit_email']);
     $password = mysqli_real_escape_string($connection, $_POST['edit_password']);
     $membership_start = mysqli_real_escape_string($connection, $_POST['edit_membership_start']);
-    $membership_end = mysqli_real_escape_string($connection, $_POST['edit_membership_end']);
+    $newEndingDate = date("Y-m-d", strtotime(date("Y-m-d", strtotime($membership_start)) . " + 365 day"));
     $type = mysqli_real_escape_string($connection, $_POST['type']);
     $note = mysqli_real_escape_string($connection, $_POST['edit_note']);
 
@@ -217,7 +263,7 @@ if (isset($_POST['update'])) {
         $hashed = md5($password);
         $stat = 'No';
         $status = 1;
-        $query = "UPDATE tbl_membership SET firstname='$firstname', lastname='$lastname', address='$address', emails='$email', membership_start='$membership_start', membership_end='$membership_end', note='$note', type='$type', status = '$status', notifications='$stat'  WHERE ID='$id' ";
+        $query = "UPDATE tbl_membership SET firstname='$firstname', lastname='$lastname', address='$address', emails='$email', membership_start='$membership_start', membership_end='$newEndingDate', note='$note', type='$type', status = '$status', notifications='$stat'  WHERE ID='$id' ";
         $query_run = mysqli_query($connection, $query);
 
         if ($query_run) {
@@ -254,30 +300,30 @@ if (isset($_POST['addevent'])) {
     $file_extension = pathinfo($filename, PATHINFO_EXTENSION);
 
     if (!in_array($file_extension, $allowed_extension)) {
-        $_SESSION['message'] = "Invalid File Format" .$filename;
+        $_SESSION['message'] = "Invalid File Format" . $filename;
         header('location: reservation.php');
     } else {
 
-    $email_query = "SELECT * FROM tbl_event WHERE event='$event'";
-    $email_query_run = mysqli_query($connection, $email_query);
+        $email_query = "SELECT * FROM tbl_event WHERE event='$event'";
+        $email_query_run = mysqli_query($connection, $email_query);
 
-    if (mysqli_num_rows($email_query_run) > 0) {
-        $_SESSION['status'] = "Event already exist";
-        header('location: reservation.php');
-    } else {
-
-        $query = "INSERT INTO tbl_event (event,description,image) VALUES ('$event','$description','$filename')";
-        $query_run = mysqli_query($connection, $query);
-
-        if ($query_run) {
-            $_SESSION['status'] = "Event added";
+        if (mysqli_num_rows($email_query_run) > 0) {
+            $_SESSION['status'] = "Event already exist";
             header('location: reservation.php');
         } else {
-            $_SESSION['message'] = "Event not added";
-            header('location: reservation.php');
+
+            $query = "INSERT INTO tbl_event (event,description,image) VALUES ('$event','$description','$filename')";
+            $query_run = mysqli_query($connection, $query);
+
+            if ($query_run) {
+                $_SESSION['status'] = "Event added";
+                header('location: reservation.php');
+            } else {
+                $_SESSION['message'] = "Event not added";
+                header('location: reservation.php');
+            }
         }
     }
-}
 }
 
 
@@ -300,30 +346,30 @@ if (isset($_POST['+event'])) {
     $file_extension = pathinfo($filename, PATHINFO_EXTENSION);
 
     if (!in_array($file_extension, $allowed_extension)) {
-        $_SESSION['message'] = "Invalid File Format" .$filename;
+        $_SESSION['message'] = "Invalid File Format" . $filename;
         header('location: reservation.php');
     } else {
 
-    $email_query = "SELECT * FROM tbl_event WHERE event='$event'";
-    $email_query_run = mysqli_query($connection, $email_query);
+        $email_query = "SELECT * FROM tbl_event WHERE event='$event'";
+        $email_query_run = mysqli_query($connection, $email_query);
 
-    if (mysqli_num_rows($email_query_run) > 0) {
-        $_SESSION['status'] = "Event already exist";
-        header('location: reservation.php');
-    } else {
-
-        $query = "INSERT INTO tbl_event (event,description,image) VALUES ('$event','$description','$filename')";
-        $query_run = mysqli_query($connection, $query);
-
-        if ($query_run) {
-            $_SESSION['status'] = "Event added";
+        if (mysqli_num_rows($email_query_run) > 0) {
+            $_SESSION['status'] = "Event already exist";
             header('location: reservation.php');
         } else {
-            $_SESSION['message'] = "Event not added";
-            header('location: reservation.php');
+
+            $query = "INSERT INTO tbl_event (event,description,image) VALUES ('$event','$description','$filename')";
+            $query_run = mysqli_query($connection, $query);
+
+            if ($query_run) {
+                $_SESSION['status'] = "Event added";
+                header('location: reservation.php');
+            } else {
+                $_SESSION['message'] = "Event not added";
+                header('location: reservation.php');
+            }
         }
     }
-}
 }
 
 
@@ -341,15 +387,15 @@ if (isset($_POST['event_update'])) {
     $file_extension = pathinfo($filename, PATHINFO_EXTENSION);
 
     if (!in_array($file_extension, $allowed_extension)) {
-        $_SESSION['message'] = "Invalid File Format" .$filename;
+        $_SESSION['message'] = "Invalid File Format" . $filename;
         header('location: reservation.php');
     } else {
-        
+
         $query = "UPDATE tbl_event SET event='$event', image = '$image' WHERE ID='$id' ";
         $query_run = mysqli_query($connection, $query);
 
         if ($query_run) {
-            move_uploaded_file($_FILES['image']['tmp_name'], "img/event_image/" .$_FILES['image']['name']);
+            move_uploaded_file($_FILES['image']['tmp_name'], "img/event_image/" . $_FILES['image']['name']);
             $_SESSION['status'] = "Event Succesfully Updated";
             header('location: reservation.php');
         } else {
@@ -363,7 +409,6 @@ if (isset($_POST['event_update'])) {
 // Reservation
 
 if (isset($_POST['submit'])) {
-
     $check = "SELECT * FROM tbl_reservation WHERE checkin = '$_POST[checkin]' AND checkout = '$_POST[checkout]' AND Event = '$_POST[Event]'";
     $rs = mysqli_query($connection, $check);
     $data = mysqli_fetch_array($rs, MYSQLI_NUM);
@@ -537,9 +582,10 @@ if (isset($_POST['add_trainer'])) {
     }
 }
 
+
 //////////////////////// Update Trainer //////////////////////////////
 
-if (isset($_POST['updatebtn'])) {
+if (isset($_POST['update_tariner'])) {
 
     $id = mysqli_real_escape_string($connection, $_POST['ID']);
     $trainer = mysqli_real_escape_string($connection, $_POST['trainer']);
@@ -555,4 +601,3 @@ if (isset($_POST['updatebtn'])) {
         header('location: dashboard.php');
     }
 }
-

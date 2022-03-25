@@ -1,161 +1,99 @@
 <?php
-include('membership_security.php');
+include('security.php');
 include('body_customer/cheader.php');
 include('body_customer/cnavbar.php');
 ?>
 
-<!-- <link href="css/googleapis.css" rel="stylesheet" />
-<link href="css/mdb.css" rel="stylesheet" /> -->
-
 <style>
-    * {
-        margin: 0;
-        padding: 0
-    }
+    input[type="file"] {
+    display: none;
+}
 
-    body {
-        background-color: #000
-    }
-
-    .card {
-        width: 350px;
-        background-color: #efefef;
-        border: none;
-        cursor: pointer;
-        transition: all 0.5s
-    }
-
-    .image img {
-        transition: all 0.5s
-    }
-
-    .card:hover .image img {
-        transform: scale(1.5)
-    }
-
-    #btn {
-        height: 140px;
-        width: 140px;
-        border-radius: 50%
-    }
-
-    .name {
-        font-size: 22px;
-        font-weight: bold
-    }
-
-    .idd {
-        font-size: 14px;
-        font-weight: 600
-    }
-
-    .idd1 {
-        font-size: 12px
-    }
-
-    .number {
-        font-size: 22px;
-        font-weight: bold
-    }
-
-    .follow {
-        font-size: 12px;
-        font-weight: 500;
-        color: #444444
-    }
-
-    .btn1 {
-        height: 40px;
-        width: 150px;
-        border: none;
-        background-color: #000;
-        color: #aeaeae;
-        font-size: 15px
-    }
-
-    .text span {
-        font-size: 13px;
-        color: #545454;
-        font-weight: 500
-    }
-
-    .icons i {
-        font-size: 19px
-    }
-
-    hr .new1 {
-        border: 1px solid
-    }
-
-    .join {
-        font-size: 14px;
-        color: #a0a0a0;
-        font-weight: bold
-    }
-
-    .date {
-        background-color: #ccc
-    }
-
-    input {
-        margin: 0px;
-        padding: 0px;
-        width: 100%;
-        outline: none;
-        height: 30px;
-        border-radius: 5px;
-    }
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
 </style>
 
 <?php
-$firstname = $_SESSION['firstname'];
+$firstname = $_SESSION['username'];
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+if (isset($_GET['ID'])) {
+    $id = $_GET['ID'];
 
-    $query = "SELECT * FROM tbl_customer WHERE id = '$id' ";
+    $query = "SELECT * FROM tbl_admin WHERE ID = '$id' ";
     $result = mysqli_query($connection, $query);
 
     while ($row = mysqli_fetch_array($result)) {
 ?>
 
-        <div class="container mt-6 mb-4 p-3 d-flex justify-content-center">
-            <div class="card p-4">
-            <form action="membership_access.php" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                    <div class="image d-flex flex-column justify-content-center align-items-center"> 
-                            <img src="img/customer_image/<?php echo $row['image'] ?>" height="100" width="100" />
-                            <hr>
-
-                            <input type="file" name="image" value="<?php echo $row['image']; ?> class="form-control">
+<body class="bg-light">
+	<div class="container">
+     	<div class="row d-flex justify-content-center">
+            <div class="col-md-10 mt-5 pt-5">
+             	<div class="row z-depth-3">
+                 	<div class="col-sm-4 bg-info rounded-left">
+        		        <div class="card-block text-center text-white">
+                		    <br>
+                            <div class=" image d-flex flex-column justify-content-center align-items-center"> 
+                            <button class="btn btn-light"> <img src="img/customer_image/<?php echo $row['image'] ?>" height="100" width="100" /></button> 
+                            <form action="membership_access.php" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="ID" value="<?= $row['ID'] ?>">
+                            <label for="file-upload" class="custom-file-upload"> Choose File</label>
+                            <input type="file" id="file-upload" name="image" value="<?php echo $row['image']; ?> class="form-control">
                             <input type="hidden" name="old_image" value="<?php echo $row['image']; ?>">
                             
-                        <hr>                        
-                        <input type="text" name="firstname" value="<?php echo $row['firstname'] ?>" class="form-control">
-                        <input type="hidden" name="lastname" value="<?php echo $row['lastname'] ?>" class="form-control">
+                    		<h2 class="font-weight-bold mt-4">
+                            <h6><input type="text" name="firstname" value="<?php echo $row['firstname'] ?>" class="form-control"></h6>
+                            <h6><input type="text" name="lastname" value="<?php echo $row['lastname'] ?>" class="form-control"></h6>
+                    		<p><?php echo $row['level']; ?></p>
 
-                        <input type="text" id="myInput" name="email" value="<?php echo $row['email']; ?>" class="form-control" readonly="readonly" />
-                        <p>edit email will lead in a sign out.<i class="fas fa-toggle-on" id="myButton" data-toggle="modal" data-target="#exampleModal" onclick="myFunction()"></i></p>
+                            <button type="submit" name="update_info" class="btn btn-success form-control">Save</button>
+<hr>
+                		</div>
+            		</div>
+                </div>    
+            		<div class="col-sm-8 bg-white rounded-right">
+                    	<h3 class="mt-3 text-center">Information</h3>
+                    	<hr class="bg-primary mt-0 w-25">
+                   		<div class="row">
+                        	<div class="col-sm-8">
+                            	<p class="font-weight-bold">Email:</p>
+                                <h6><input type="text" id="myInput" name="email" value="<?php echo $row['email'] ?>" class="form-control" readonly="readonly" ></h6>
+                                <!-- <p>Changes in email will lead in a sign out.<i class="fas fa-toggle-on" id="myButton" data-toggle="modal" data-target="#exampleModal" onclick="myFunction()"></i></p> -->
+                        	</div>
+                        	<div class="col-sm-3">
+                            	<p class="font-weight-bold">Phone:</p>
+                                <h6><input type="text" name="contact" value="<?php echo $row['contact'] ?>" class="form-control"></h6>
+                        	</div>
+                    	</div>
 
-                        <div class="d-flex flex-row justify-content-center align-items-center gap-2"> <span class="idd1"></span> </div>
-                        <input type="number" name="contact" value="<?php echo $row['contact'] ?>" class="form-control">
-
-                        <div class=" d-flex mt-2"></div>
-                        <div class="text mt-3"> <input type="text" value="<?php
-                                                                            if ($row['status'] == 1) {
-                                                                                echo 'Active';
-                                                                            }
-                                                                            ?>" class="form-control" readonly>
-                            <br><br> </span>
-                        </div>
-
-                        <div class=" px-2 rounded mt-4 date "> <span class="join">Joined <?php echo $row['created_at']; ?></span> </div>
-                    </div>
-                    <hr>
-                    <button type="submit" name="update_info" class="btn btn-success form-control">Save</button>
-                </form>
+                    		<hr class="bg-primary">
+                   		<div class="row">
+                        	<div class="col-sm-6">
+                           		<p class="font-weight-bold">Customer Number</p>
+                          	  	<h6 class="text-muted"><?php echo $row['ID']; ?></h6>
+                        	</div>
+                        	<div class="col-sm-6">
+                            	<p class="font-weight-bold">Date Registered</p>
+                            	<h6 class="text-muted"><?php echo $row['created']; ?></h6>
+                        	</div>
+                    	</div>
+                    </form>
+                	   	<hr class="bg-primary">
+                	    <ul class="list-unstyled d-flex justify-content-center mt-4">
+            	        	<li><a href="#!"><i class="fab fa-facebook-f px-3 h4 text-info"></i></a></li>
+        	            	<li><a href="#!"><i class="fab fa-youtube px-3 h4 text-info"></i></a></li>
+    	                	<li><a href="#!"><i class="fab fa-twitter px-3 h4 text-info"></i></a></li>
+	               		</ul>  
+              		</div>
+             	</div>
             </div>
         </div>
+	</div>
+    <br>
 
         <p id="demo"></p>
 
@@ -183,13 +121,14 @@ if (isset($_GET['id'])) {
 
                     </div>
                     <hr>
-                    <button type="submit" name="force" class="btn btn-success form-control">Save</button>
+                    <button type="submit" name="update_info" class="btn btn-success form-control">Save</button>
                 </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>    
+    </body>
 
 <?php
     }

@@ -1,5 +1,5 @@
 <?php
-include('membership_security.php');
+include('security.php');
 
 include('body_customer/cheader.php');
 include('body_customer/cnavbar.php');
@@ -16,7 +16,7 @@ include('body_customer/cnavbar.php');
     }
 
     legend {
-        background-color: #54b87f;
+        background-color: #5bc0de;
         color: white;
         padding: 1px 5px 10px 20px 40px 80px 100px;
     }
@@ -42,8 +42,8 @@ include('body_customer/cnavbar.php');
                         </div>
                     </div>
                     <?php
-                    $firstname = $_SESSION['firstname'];
-                    $query = "SELECT * FROM tbl_customer WHERE email = '$firstname' ";
+                    $firstname = $_SESSION['username'];
+                    $query = "SELECT * FROM tbl_admin WHERE email = '$firstname' ";
                     $fecth_run = mysqli_query($connection, $query);
 
                     while ($row = mysqli_fetch_array($fecth_run)) {
@@ -55,7 +55,7 @@ include('body_customer/cnavbar.php');
                                     <legend>Membership Registration</legend>
                                     <div class="form-group">
                                         <label> Membership Number </label>
-                                        <input type="number" class="form-control" name="ID" value="<?php echo $row['id']; ?>" readonly>
+                                        <input type="number" class="form-control" name="ID" value="<?php echo $row['ID']; ?>" readonly>
                                     </div>
                                 <?php
                             }
@@ -102,7 +102,7 @@ include('body_customer/cnavbar.php');
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="email" name="email" class="form-control" value="<?php echo $_SESSION['firstname']; ?>" placeholder="Enter your valid Email address">
+                                    <input type="email" name="email" class="form-control" value="<?php echo $_SESSION['username']; ?>" placeholder="Enter your valid Email address">
                                     <small class="error_email" style="color: red;"></small>
                                 </div>
                                 <div class="form-group">
@@ -133,7 +133,7 @@ include('body_customer/cnavbar.php');
                                     <textarea type="text" name="note" class="form-control" cols="2" rows="2" required></textarea>
                                 </div>
 
-                                <button type="submit" name="register" class="btn btn-success">Save</button>
+                                <button type="submit" name="register" class="btn btn-info">Save</button>
                                 </fieldset>
                             </form>
                         </div>

@@ -1,5 +1,5 @@
 <?php
-include('membership_security.php');
+include('security.php');
 
 include('body_customer/cheader.php');
 include('body_customer/cnavbar.php');
@@ -73,9 +73,9 @@ include('body_customer/cnavbar.php');
                                 <hr>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                 <?php
-                                $firstname = $_SESSION['firstname'];
+                                $firstname = $_SESSION['username'];
 
-                                $left = "SELECT tbl_membership.status, tbl_membership.membership_start, tbl_membership.membership_end, IFNULL(tbl_membership.ID, 'NOT A MEMBER')FROM tbl_customer RIGHT JOIN tbl_membership ON tbl_customer.id = tbl_membership.ID WHERE email = '$firstname'";
+                                $left = "SELECT tbl_membership.status, tbl_membership.membership_start, tbl_membership.membership_end, IFNULL(tbl_membership.ID, 'NOT A MEMBER')FROM tbl_admin RIGHT JOIN tbl_membership ON tbl_admin.ID = tbl_membership.ID WHERE email = '$firstname'";
                                 $run = mysqli_query($connection, $left);
                                 $row = mysqli_num_rows($run);
 
@@ -89,7 +89,7 @@ include('body_customer/cnavbar.php');
                                     else {
                                         echo 'Pending';
                                     }
-                                    echo '<hr>';
+                                    echo '<br><hr>';
                                     echo '<small> Until: &nbsp; </small>';
                                     echo $row['membership_start'];
                                     echo '<hr>';
@@ -123,9 +123,9 @@ include('body_customer/cnavbar.php');
                         <div class="col-auto">
                             <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
                             <?php
-                                $firstname = $_SESSION['firstname'];
+                                $firstname = $_SESSION['username'];
 
-                                $left = "SELECT tbl_reservation.Event, tbl_reservation.status, tbl_reservation.checkin, tbl_reservation.checkout, IFNULL(tbl_reservation.ID, 'No Reservation')FROM tbl_customer RIGHT JOIN tbl_reservation ON tbl_customer.id = tbl_reservation.ID WHERE email = '$firstname'";
+                                $left = "SELECT tbl_reservation.Event, tbl_reservation.status, tbl_reservation.checkin, tbl_reservation.checkout, IFNULL(tbl_reservation.ID, 'No Reservation')FROM tbl_admin RIGHT JOIN tbl_reservation ON tbl_admin.ID = tbl_reservation.ID WHERE email = '$firstname'";
                                 $run = mysqli_query($connection, $left);
                                 $row = mysqli_num_rows($run);
 

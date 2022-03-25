@@ -34,6 +34,7 @@ include('body/navbar.php');
 <body style="background:#eee">
 	<div class="container">
 		<div class="row">
+		<h4 class="m-2 font-weight-bold text-primary">Contact tracing </h4>
 			<br>
 		
 			<div class="col-md-2" style="display:none;padding:4px;background:#fff;border-radius: 5px;" id="divvideo">

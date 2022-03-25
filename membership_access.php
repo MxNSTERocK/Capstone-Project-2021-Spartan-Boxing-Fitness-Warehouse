@@ -11,12 +11,12 @@ if (isset($_POST['reg_user'])) {
     $lastname = mysqli_real_escape_string($connection, $_POST['lastname']);
     $email = mysqli_real_escape_string($connection, $_POST['email']);
     $contact = mysqli_real_escape_string($connection, $_POST['contact']);
-    $role = mysqli_real_escape_string($connection, $_POST['role']);
+    $role = mysqli_real_escape_string($connection, $_POST['level']);
     $password = mysqli_real_escape_string($connection, $_POST['password']);
     $confirm = mysqli_real_escape_string($connection, $_POST['confirm']);
     $image = mysqli_real_escape_string($connection, $_FILES['image']['name']);
 
-    $hashed = md5($password);
+    $hashed = md5($password); 
 
     $allowed_extension = array('gif', 'png', 'jpg', 'jpeg');
     $filename = $_FILES['image']['name'];
@@ -27,7 +27,7 @@ if (isset($_POST['reg_user'])) {
         header('location: register.php');
     } else {
 
-        $email_query = "SELECT * FROM tbl_customer WHERE email='$email'";
+        $email_query = "SELECT * FROM tbl_admin WHERE email='$email'";
         $email_query_run = mysqli_query($connection, $email_query);
 
         if (mysqli_num_rows($email_query_run) > 0) {
@@ -35,9 +35,13 @@ if (isset($_POST['reg_user'])) {
             header('location: register.php');
         } else {
 
+            $level="customer";
+
             if ($password === $confirm) {
 
-                $query = "INSERT INTO tbl_customer (username,firstname,lastname,email,password,contact,role,image) VALUES ('$username','$firstname','$lastname','$email','$hashed','$contact','$role','$image')";
+                $status=1;
+
+                $query = "INSERT INTO tbl_admin (username,firstname,lastname,email,password,contact,level,status,image) VALUES ('$username','$firstname','$lastname','$email','$hashed','$contact','$level','$status','$image')";
                 $query_run = mysqli_query($connection, $query);
             }
             if ($query_run) {

@@ -198,6 +198,7 @@ include('body/navbar.php');
         <div class="card-body">
             <!-- Modal -->
             <div class="card border-left-primary shadow h-200 py-2">
+            <h4 class="m-2 font-weight-bold text-primary">Reservation</h4>
                 <div id="accordion">
                     <div class="card">
                         <div class="card-header" style="background-color: #FEEAE6;">

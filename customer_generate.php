@@ -1,5 +1,5 @@
 <?php
-include('membership_security.php');
+include('security.php');
 
 include('body_customer/cheader.php');
 include('body_customer/cnavbar.php');
