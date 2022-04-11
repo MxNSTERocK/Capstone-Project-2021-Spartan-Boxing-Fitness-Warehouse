@@ -36,7 +36,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-user-cog"></i>
-            <span data-toggle="tooltip" data-placement="top" title="Go to Admin panel">Admin panel</span>
+            <span data-toggle="tooltip" data-placement="top" title="Go to Admin panel">Administrator</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
@@ -198,14 +198,15 @@
 
                         <center>
                             <?php
-                            date_default_timezone_set('Asia/manila');
+                            $servertime = date_default_timezone_set('Asia/manila');
                             echo "Today is " . date("M-d-Y") . "<br>";
+
                             ?>
                         </center>
                         <hr>
 
                         <div>
-
+ 
                             <span class="small text-gray-1000">
 
                                 <?php
@@ -238,7 +239,7 @@
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="mr-2 d-none d-lg-inline text-gray-600 small">
 
-                            <?php echo $_SESSION['username']; ?>
+                            <?php echo $_SESSION['username'];?> 
 
                         </span>
 
@@ -297,7 +298,7 @@
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
 
                         <form action="code.php" method="POST">
-                            <button type="submit" name="logout_btn" class="btn btn-primary">Logout</a></button>
+                            <button type="submit" name="admin_logout" class="btn btn-primary">Logout</a></button>
                         </form>
 
                     </div>

@@ -1,5 +1,5 @@
 <?php
-include('security.php');
+include('membership_security.php'); 
 
 include('body_customer/cheader.php');
 include('body_customer/cnavbar.php');
@@ -41,49 +41,10 @@ include('body_customer/cnavbar.php');
                             </div>
                         </div>
                     </div>
-                    <?php
-                    $firstname = $_SESSION['username'];
-                    $query = "SELECT * FROM tbl_admin WHERE email = '$firstname' ";
-                    $fecth_run = mysqli_query($connection, $query);
-
-                    while ($row = mysqli_fetch_array($fecth_run)) {
-                    ?>
-
                         <div class="col-xl-12 col-md-12 mb-12">
                             <form action="membership_access.php" method="POST" enctype="multipart/form-data">
                                 <fieldset>
                                     <legend>Membership Registration</legend>
-                                    <div class="form-group">
-                                        <label> Membership Number </label>
-                                        <input type="number" class="form-control" name="ID" value="<?php echo $row['ID']; ?>" readonly>
-                                    </div>
-                                <?php
-                            }
-                                ?>
-
-                                <?php
-                                $select = mysqli_query($connection, " SELECT * FROM tbl_trainer");
-                                ?>
-
-                                <div class="form-group">
-                                            <label> Event</label>
-                                            <input type="checkbox" id="myCheck" onclick="myFunction()">    
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <label class="input-group-text" for="inputGroupSelect01">Choose Trainer</label>
-                                                </div>
-                                                <select name="trainer" id="text" class="form-control" style="display:none">
-                                                <option disabled selected value>Choose Trainer</option>
-                                                    <?php
-                                                    while ($row = mysqli_fetch_array($select)) {
-                                                    ?>
-                                                        <option><?php echo $row['trainer']; ?></option>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                        </div>
                                 <div class="form-group">
                                     <label> Firstname </label>
                                     <input type="text" name="firstname" class="form-control" placeholder="Enter your firstname" onkeyup="this.value = this.value.toUpperCase();" required>
@@ -98,11 +59,11 @@ include('body_customer/cnavbar.php');
                                 </div>
                                 <div class="form-group">
                                     <label>Contact</label>
-                                    <input type="number" name="contact" class="form-control" placeholder="Enter Contact number" required>
+                                    <input type="number" name="contact" class="form-control" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" placeholder="Enter Contact number" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="email" name="email" class="form-control" value="<?php echo $_SESSION['username']; ?>" placeholder="Enter your valid Email address">
+                                    <input type="email" name="email" class="form-control" value="<?php echo $_SESSION['firstname']; ?>" placeholder="Enter your valid Email address">
                                     <small class="error_email" style="color: red;"></small>
                                 </div>
                                 <div class="form-group">

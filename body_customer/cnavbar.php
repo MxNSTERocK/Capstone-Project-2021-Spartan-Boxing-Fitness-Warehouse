@@ -162,7 +162,7 @@
                 <li class="nav-item dropdown no-arrow mx-1">
                     <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black;">
                         <?php
-                        $firstname = $_SESSION['username'];
+                        $firstname = $_SESSION['firstname'];
                         // echo $email;
                         $query = "SELECT * FROM tbl_customer WHERE email = '$firstname' ";
                         $result = mysqli_query($connection, $query);
@@ -246,25 +246,25 @@
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="mr-2 d-none d-lg-inline text-gray-600 small">
 
-                            <?php echo $_SESSION['username']; ?>
+                            <?php echo $_SESSION['firstname']; ?>
 
                         </span>
                         <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                     </a>
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="person.php">
+                        <a class="dropdown-item" href="customer_profile.php">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Profile
                         </a>
-                        <a class="dropdown-item" href="#">
+                        <!-- <a class="dropdown-item" href="#">
                             <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                             Settings
                         </a>
                         <a class="dropdown-item" href="#">
                             <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                             Activity Log
-                        </a>
+                        </a> -->
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -291,7 +291,7 @@
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
 
                         <form action="membership_access.php" method="POST">
-                            <button type="submit" name="logout_btn" class="btn btn-primary">Logout</a></button>
+                            <button type="submit" name="customer_logout" class="btn btn-primary">Logout</a></button>
                         </form>
 
                     </div>

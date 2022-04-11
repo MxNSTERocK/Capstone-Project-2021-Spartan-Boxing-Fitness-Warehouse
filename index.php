@@ -127,11 +127,8 @@ include('body/navbar.php');
 							?>
 						</tbody>
 					</table>
-
 				</div>
-
 			</div>
-
 		</div>
 	</div>
 </div>

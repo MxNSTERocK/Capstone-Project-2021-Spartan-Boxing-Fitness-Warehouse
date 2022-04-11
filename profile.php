@@ -25,7 +25,7 @@ while ($row = mysqli_fetch_array($result)) {
                              <img src="img/customer_image/<?php echo $row['image'] ?>" height="100" width="100" />
                     		<h2 class="font-weight-bold mt-4"><?php echo $row['firstname'] .' '. $row['lastname']; ?></h2>
                     		<p><?php echo $row['level']; ?></p>
-                            <a href="person_edit.php?ID=<?php echo$row['ID']; ?>"> <i class="far fa-edit fa-2x mb-4"></i></a>
+                            <a href="profile_edit.php?ID=<?php echo$row['ID']; ?>"> <i class="far fa-edit fa-2x mb-4"></i></a>
             		</div>
                 </div>    
             		<div class="col-sm-8 bg-white rounded-right">

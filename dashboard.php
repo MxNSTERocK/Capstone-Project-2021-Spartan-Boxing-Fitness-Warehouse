@@ -16,11 +16,16 @@ include('body/navbar.php');
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
+    <?php 
+    // echo '<pre>';
+    // var_dump($_SESSION);
+    // echo '</pre>';
+    ?>
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+        <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
     </div>
 
     <!-- Content Row -->
@@ -41,7 +46,7 @@ include('body/navbar.php');
                                 ?>
                                 <hr>
                                 <?php
-                                $query = "SELECT ID FROM tbl_admin WHERE level= 'customer' ORDER BY ID";
+                                $query = "SELECT ID FROM tbl_admin WHERE level= 'user' ORDER BY ID";
                                 $query_run = mysqli_query($connection, $query);
                                 $row = mysqli_num_rows($query_run);
                                 echo '<small> Customer:  ' . $row . ' </small>';
@@ -162,106 +167,8 @@ include('body/navbar.php');
     <!-- Content Row -->
 
     <div class="row">
-
-        <!-- Area Chart -->
-        <div class="col-xl-8 col-lg-7">
-            <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Add Trainer </button>
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Add Trainer </h5>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="code.php" method="POST">
-                                        <div class="modal-body">
-                                            <div class="form-group">
-                                                <label> Trainer's name </label>
-                                                <input type="text" name="trainer" class="form-control" placeholder="Enter your firstname" onkeyup="this.value = this.value.toUpperCase();" required>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" name="add_trainer" class="btn btn-success">Save</button>
-                                        </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Dropdown Header:</div>
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                    <div class="container">
-                        <div class="col-md-">
-                            <div class="fix">
-                                <table class="table" id="dataTable" width="100%" cellspacing="10%">
-                                    <thead>
-                                        <tr style="background-color: #faf1f0;">
-                                            <th>Name</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-        
-                                        <?php
-                                        $query = "SELECT * FROM tbl_trainer";
-                                        $query_run = mysqli_query($connection, $query);
-
-                                        if (mysqli_num_rows($query_run) > 0) {
-                                            while ($row = mysqli_fetch_assoc($query_run)) { ?>
-
-                                                <tr>
-                                                    <td><?php echo $row['trainer'] ?> </td>
-                                                    <td><?php
-                                                        if ($row['status'] == 1) {
-                                                            echo '<p><i class="fa fa-circle text-success"></i><a href="trainer.php?ID=' . $row['ID'] . '&status=0">Active</a></p>';
-                                                        } else {
-                                                            echo '<p><i class="fa fa-circle text-danger"></i><a href="trainer.php?ID=' . $row['ID'] . '&status=1">Inactive</a></p>';
-                                                        }
-                                                        ?></td>
-                                                    <td>
-                                                        <form action="trainer_edit.php" method="POST">
-                                                            <input type="hidden" name="edit_id" value="<?php echo $row['ID']; ?>">
-                                                            <button type="submit" name="edit_btn" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                        <?php
-                                            }
-                                        } else {
-                                            echo "No Available Trainer";
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Pie Chart -->
-        <div class="col-xl-4 col-lg-12">
+        <div class="col-xl-12 col-lg-12">
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -327,7 +234,6 @@ include('body/navbar.php');
                                 <tr style="background-color: #faf1f0;">
                                     <th>Event</th>
                                     <th>Status</th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -343,17 +249,6 @@ include('body/navbar.php');
                                                     echo '<p><i class="fa fa-circle text-danger"></i><ID=' . $row['ID'] . '&status=1"></a></p>';
                                                 }
                                                 ?></td>
-
-                                            <td>
-                                                <form action="view.php" method="POST">
-                                                    <input type="hidden" name="view_id" value="<?php echo $row['ID']; ?>">
-                                                    <button type="submit" name="view" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></button>
-                                                </form>
-                                                <form action="membership_edit.php" method="POST">
-                                                    <input type="hidden" name="update_id" value="<?php echo $row['ID']; ?>">
-                                                    <button type="submit" name="update" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></button>
-                                                </form>
-                                            </td>
                                         </tr>
                                 <?php
                                     }

@@ -1,6 +1,5 @@
 php_value display_errors 1
 
-
 RewriteEngine On
 RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f

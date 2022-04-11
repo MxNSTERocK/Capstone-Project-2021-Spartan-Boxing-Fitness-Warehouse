@@ -18,7 +18,7 @@ include('body/header.php');
                         <div class="col-lg-12">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Administrator Login</h1>
+                                    <h1 class="h4 text-gray-900 mb-4"><?= Title ?></h1>
                                     <?php
                                     if (isset($_SESSION['error'])) {
                                         echo "
@@ -56,6 +56,7 @@ include('body/header.php');
                                         <input type="password" name="password" id="valid" class="form-control form-control-user" placeholder="Enter your password" pattern="^\S+$" minlength="8" autofocus required>
                                         <span id="valid" class="validity"></span>
                                     </div>
+                                    <br>
 
                                     <a href="forgot/forgot.php">
                                         <center>Forgot Password</center>
@@ -67,6 +68,12 @@ include('body/header.php');
                                 <p>
                                     <a href="register.php">
                                         <center>Click here to register!</center>
+                                    </a>
+                                    <?php
+                                    // echo '<pre>';
+                                    // var_dump($_SESSION);
+                                    // echo '</pre>';
+                                    ?>
                                     </a>
                                 </p>
                             </div>

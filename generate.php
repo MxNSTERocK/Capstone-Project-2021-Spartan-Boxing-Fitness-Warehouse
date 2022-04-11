@@ -68,7 +68,7 @@ if (isset($_POST['submit'])) {
 										<!-- <h3>Please Fill-out All Fields</h3> -->
 										<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 											<div class="form-group">
-												<label>Name</label>
+												<label>Full name</label>
 												<input type="text" class="form-control" name="customer" style="width:20em;" placeholder="Enter your Name" value="<?php echo @$customer; ?>" required />
 											</div>
 

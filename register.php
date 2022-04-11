@@ -150,11 +150,10 @@ session_start();
 
                                         <div class="input-group">
                                             <label>Enter Password</label>
-                                            <input type="password" name="password" id="psw" minlength="5" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" required>
+                                            <input type="password" name="password" id="psw" minlength="8" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$" required>
                                         </div>
 
                                         <div id="message">
-                                            <h6>No space allowed</h6>
                                             <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
                                             <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
                                             <p id="number" class="invalid">A <b>number</b></p>
@@ -168,12 +167,13 @@ session_start();
 
                                         <div class="input-group">
                                             <label>Image</label>
-                                            <input type="file" name="image" class="form-control" required>
+                                            <input type="file" name="image" required>
                                         </div>
                                         <div class="input-group">
                                             <button type="submit" class="btn btn-primary btn-user btn-block" name="reg_user"> Register </button>
                                         </div>
                                         <hr>
+                                        <br>
                                         <p>
                                             Already having an account?
                                             <a href="login.php"> Login Here! </a>
@@ -192,7 +192,6 @@ session_start();
     </center>
     &nbsp;
 </body>
-
 </html>
 
 <script>

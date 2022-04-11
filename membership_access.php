@@ -59,47 +59,47 @@ if (isset($_POST['reg_user'])) {
 
 // Membership Login
 
-if (isset($_POST['login_member'])) {
+// if (isset($_POST['login_member'])) {
 
-    $email = mysqli_real_escape_string($connection, $_POST['email']);
-    $password = mysqli_real_escape_string($connection, $_POST['password']);
+//     $email = mysqli_real_escape_string($connection, $_POST['email']);
+//     $password = mysqli_real_escape_string($connection, $_POST['password']);
 
-    $pattern = "/^\s+|[\s]+$/";
-    if (preg_match($pattern, $email) == 0) {
-        $email_validation = "Valid";
-    } else {
-        $email_validation = "Invalid";
-    }
-    if (preg_match($pattern, $password) == 0) {
-        $password_validation = "Valid";
-    } else {
-        $password_validation = "Invalid";
-    }
-    if ($email_validation == "Valid" && $password_validation == "Valid") {
+//     $pattern = "/^\s+|[\s]+$/";
+//     if (preg_match($pattern, $email) == 0) {
+//         $email_validation = "Valid";
+//     } else {
+//         $email_validation = "Invalid";
+//     }
+//     if (preg_match($pattern, $password) == 0) {
+//         $password_validation = "Valid";
+//     } else {
+//         $password_validation = "Invalid";
+//     }
+//     if ($email_validation == "Valid" && $password_validation == "Valid") {
 
-        $hashed = md5($password);
+//         $hashed = md5($password);
 
-        $query = "SELECT * FROM tbl_customer WHERE email='$email' AND password='$hashed' LIMIT 1";
-        $query_run = mysqli_query($connection, $query);
-        $status = mysqli_fetch_array($query_run);
+//         $query = "SELECT * FROM tbl_customer WHERE email='$email' AND password='$hashed' LIMIT 1";
+//         $query_run = mysqli_query($connection, $query);
+//         $status = mysqli_fetch_array($query_run);
 
-        if ($status['status'] ==  1) {
-            $_SESSION['firstname'] = $email;
-            header('location: customer.php');
-        } else if ($status['status'] == 0) {
-            $_SESSION['message'] = "Your status is deactivated";
-            header('location: login_member.php');
-        } else {
-            $_SESSION['message'] = "Invalid Credential";
-            header('location: login_member.php');
-        }
-    }
-}
+//         if ($status['status'] ==  1) {
+//             $_SESSION['firstname'] = $email;
+//             header('location: customer.php');
+//         } else if ($status['status'] == 0) {
+//             $_SESSION['message'] = "Your status is deactivated";
+//             header('location: login_member.php');
+//         } else {
+//             $_SESSION['message'] = "Invalid Credential";
+//             header('location: login_member.php');
+//         }
+//     }
+// }
 
 // Membership Logout
 
-if (isset($_POST['logout_btn'])) {
-    session_destroy();
+if (isset($_POST['customer_logout'])) {
+    // session_destroy();
     unset($_SESSION['firstname']);
     header('location: login.php');
 }
@@ -276,7 +276,7 @@ if (isset($_POST['submit'])) {
 
 if (isset($_POST['update_info'])) {
 
-    $id = mysqli_real_escape_string($connection, $_POST['id']);
+    $id = mysqli_real_escape_string($connection, $_POST['ID']);
     $firstname = mysqli_real_escape_string($connection, $_POST['firstname']);
     $lastname = mysqli_real_escape_string($connection, $_POST['lastname']);
     $email = mysqli_real_escape_string($connection, $_POST['email']);
@@ -290,19 +290,19 @@ if (isset($_POST['update_info'])) {
 
     if (!in_array($file_extension, $allowed_extension)) {
         $_SESSION['message'] = "Invalid File Format" .$filename;
-        header('location: person.php');
+        header('location: customer_profile.php');
     } else {
 
-        $query = "UPDATE tbl_customer SET firstname='$firstname', lastname='$lastname', email='$email', contact='$contact', image='$image' WHERE id='$id' ";
+        $query = "UPDATE tbl_admin SET firstname='$firstname', lastname='$lastname', email='$email', contact='$contact', image='$image' WHERE ID='$id' ";
         $query_run = mysqli_query($connection, $query);
 
         if ($query_run) {
             move_uploaded_file($_FILES['image']['tmp_name'], "img/customer_image/" .$_FILES['image']['name']);
             $_SESSION['status'] = "Successfully Updated";
-            header('location: person.php');
+            header('location: customer_profile.php');
         } else {
             $_SESSION['message'] = "Sorry Try again!";
-            header('location: person.php');
+            header('location: customer_profile.php');
         }
     }
 }
@@ -325,3 +325,4 @@ if (isset($_POST['force'])) {
         header('location: person.php');
     }
 }
+?>

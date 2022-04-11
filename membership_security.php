@@ -10,9 +10,9 @@ else
     header("Location: database/dbconfig.php");
 }
 
-if(!$_SESSION['firstname'])
+if(!$_SESSION['firstname']) 
 
 {
-    header('Location: login_member.php');
+    header('Location: login.php');
 }
 ?>

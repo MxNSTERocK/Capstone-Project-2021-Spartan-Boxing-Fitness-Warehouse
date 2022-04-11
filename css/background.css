@@ -36,8 +36,9 @@ body:after {
 }
 
 input:invalid+span:after {
-    content: 'INVALID';
+    content: 'Please enter minimum of 8 aplhanumeric with special character';
     color: red;
+    text-align: center;
 }
 
 input:valid+span:after {

@@ -32,7 +32,7 @@ include('body/navbar.php');
                     </div>
                     <div class="col-md-4 col-xs-6">
                         <label>Quantity</label>
-                        <input type="number" class="form-control" name="pieces" placeholder="Quantity">
+                        <input type="number" class="form-control" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" name="pieces" placeholder="Quantity">
                     </div>
                     <div class="col-md-4 col-xs-6">
                         <label>Date</label>

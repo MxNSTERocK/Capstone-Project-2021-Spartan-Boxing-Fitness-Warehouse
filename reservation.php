@@ -9,6 +9,7 @@ include('body/navbar.php');
 <link href="css/googleapis.css" rel="stylesheet" />
 <link href="css/mdb.css" rel="stylesheet" />
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 <style>
     .alert {
@@ -26,55 +27,63 @@ include('body/navbar.php');
 <body>
     <div class="card-body">
         <div class="container">
-            <div class="col-xl-13 col-md-13 mb-13">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-header py-3" style="background-color: #FEEAE6;">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            <i class="fas fa-list-ul fa-2x text-gray-1000" data-toggle="modal" data-target="#myEvent" data-toggle="tooltip" data-placement="top" title="Add Event"></i> &nbsp; List of Event
-                        </div>
+            <!-- <div class="col-xl-13 col-md-13 mb-13"> -->
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-header py-3" style="background-color: #FEEAE6;">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        <i class="fas fa-list-ul fa-2x text-gray-1000" data-toggle="modal" data-target="#myEvent" data-toggle="tooltip" data-placement="top" title="Add Event"></i> &nbsp; List of Event
                     </div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">
-                        <?php
-                        $query = "SELECT * FROM tbl_event";
-                        $query_run = mysqli_query($connection, $query);
-                        ?>
-                        <?php
-                        if (mysqli_num_rows($query_run) > 0) {
-                            while ($row = mysqli_fetch_assoc($query_run)) { ?>
+                </div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                    <?php
+                    $query = "SELECT * FROM tbl_event";
+                    $query_run = mysqli_query($connection, $query);
+                    ?>
+                    <?php
+                    if (mysqli_num_rows($query_run) > 0) {
+                        while ($row = mysqli_fetch_assoc($query_run)) { ?>
 
-                                <div class="container">
-                                    <div class="col-md-4">
-                                        <div class="fix">
-                                            <br>
-                                            <p><?php echo $row['event']; ?></p>
-                                            <button class="btn btn-information"> <img src="img/event_image/<?php echo $row['image'] ?>" height="100" width="100" /></button>
-                                            <!-- <img width="auto" src="img/event_image/<?php //echo $row['image'] ?>" width="100" height="150" /> -->
-                                            <?php
-                                            if ($row['status'] == 1) {
-                                                echo '<p><div class="alert alert-success"><a href="availability.php?ID=' . $row['ID'] . '&status=0">Available</a></div></p>';
-                                            } else {
-                                                echo '<p><div class="alert alert-danger"><a href="availability.php?ID=' . $row['ID'] . '&status=1">Unavailable</a></div></p>';
-                                            }
-                                            ?>
+                            <div class="container">
+                                <div class="col-md-4">
+                                    <div class="fix">
+                                        <br>
+                                        <p><?php echo $row['event']; ?></p>
+                                        <button class="btn btn-information"> <img src="img/event_image/<?php echo $row['image'] ?>" height="100" width="100" /></button>
+                                        <?php
 
-                                            <form action="event_edit.php" method="POST">
-                                                <input type="hidden" name="edit_id" value="<?php echo $row['ID']; ?>">
-                                                <button type="submit" name="upevent" class="o btn btn-success btn-lg "><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Update"></i></button>
-                                            </form>
-                                            <br>
-                                        </div>
+                                        if ($row['status'] == 1) {
+                                            echo '<p><div class="alert alert-success" id="avail"> <a href="availability.php?ID=' . $row['ID'] . '&status=0">Available</a></div></p>';
+                                        } 
+                                        else {
+                                            echo '<p><div class="alert alert-danger" id="unavail"><a href="availability.php?ID=' . $row['ID'] . '&status=1">Unavailable</a></div></p>';
+                                        }
+                                        ?>
+
+                                        <form action="event_edit.php" method="POST">
+                                            <input type="hidden" name="edit_id" value="<?php echo $row['ID']; ?>">
+                                            <button type="submit" name="upevent" class="o btn btn-success btn-lg "><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Update"></i></button>
+                                        </form>
+                                        <br>
                                     </div>
                                 </div>
-                        <?php
-                            }
+                            </div>
+                    <?php
                         }
-                        ?>
-                    </div>
+                    }
+                    ?>
                 </div>
             </div>
         </div>
-
     </div>
+
+    <script type="text/javascript">
+        document.getElementById('avail').onclick = function(e) {
+            if (!confirm('Are you sure you want to change the status')) {
+                e.preventDefault();
+            }
+        }
+    </script>
+
     <!-- The Modal -->
     <div class="modal fade" id="myModal">
         <div class="modal-dialog modal-lg">
@@ -111,9 +120,9 @@ include('body/navbar.php');
                                             <input name="mail" type="email" class="form-control" required>
                                         </div>
                                         <div class="form-group">
-                                                    <label>Contact</label>
-                                                    <input name="contact" type="int" class="form-control" required>
-                                                </div>
+                                            <label>Contact</label>
+                                            <input name="contact" type="int" class="form-control" required>
+                                        </div>
 
                                         <?php
                                         $select = mysqli_query($connection, " SELECT * FROM tbl_event WHERE status=1");
@@ -146,8 +155,25 @@ include('body/navbar.php');
                                 <div class="col-md-12 col-sm-12">
                                     <div class="panel panel-primary">
                                         <div class="panel-heading">
+                                            <hr>
                                             RESERVATION INFORMATION
                                         </div>
+                                        <hr>
+
+                                        <?php
+                                        $today = date("Y-m-d");
+
+                                        $date = "SELECT * FROM tbl_reservation";
+                                        $date_run = mysqli_query($connection, $date);
+
+                                        while ($row = mysqli_fetch_array($date_run)) {
+                                            if ($row['checkout'] >= $today) {
+
+                                                echo '<b>' . $row['Event'] . '</b> <br>' . $row['checkin'] . ' to ' . $row['checkout'] . '<br>'; // echo blah blah
+                                            }
+                                        }
+                                        ?>
+
                                         <hr>
                                         <div class="panel-body">
                                             <div class="form-group">
@@ -198,7 +224,7 @@ include('body/navbar.php');
         <div class="card-body">
             <!-- Modal -->
             <div class="card border-left-primary shadow h-200 py-2">
-            <h4 class="m-2 font-weight-bold text-primary">Reservation</h4>
+                <h4 class="m-2 font-weight-bold text-primary">Reservation</h4>
                 <div id="accordion">
                     <div class="card">
                         <div class="card-header" style="background-color: #FEEAE6;">
@@ -262,6 +288,7 @@ include('body/navbar.php');
                     $rsql = "SELECT * FROM `tbl_reservation`";
                     $rre = mysqli_query($connection, $rsql);
                     $r = 0;
+                    $d = 0;
                     while ($row = mysqli_fetch_array($rre)) {
                         $br = $row['status'];
                         if ($br == "Conform") {
@@ -270,24 +297,27 @@ include('body/navbar.php');
                     }
 
                     ?>
+
                     <div class="container">
                         <div class="card-header" style="background-color: #FEEAE6;">
                             <button class="btn btn-success" data-toggle="collapse" href="#collapse2">
                                 Booked <span class="badge"><?php echo $r; ?></span></button>
+                            <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Archive</a>
                         </div>
+                    </div>
 
-                        <div id="collapse2" class="collapse" data-parent="#accordion">
-                            <div class="card-body">
-                                <?php
-                                $msql = "SELECT * FROM `tbl_reservation` ORDER BY checkout ASC";
-                                $mre = mysqli_query($connection, $msql);
+                    <div id="collapse2" class="collapse" data-parent="#accordion">
+                        <div class="card-body">
+                            <?php
+                            $msql = "SELECT * FROM `tbl_reservation` ORDER BY checkout ASC";
+                            $mre = mysqli_query($connection, $msql);
 
-                                while ($mrow = mysqli_fetch_array($mre)) {
-                                    $br = $mrow['status'];
-                                    if ($br == "Conform") {
-                                        $fid = $mrow['ID'];
+                            while ($mrow = mysqli_fetch_array($mre)) {
+                                $br = $mrow['status'];
+                                if ($br == "Conform") {
+                                    $fid = $mrow['ID'];
 
-                                        echo "<div class='col-md-3 col-xs-3'>
+                                    echo "<div class='col-md-3 col-xs-3'>
                                     				<div class='panel panel-primary text-center no-boder bg-color-blue'>
                                     					<div class='panel-body'>
                                     						<i class='fa fa-users fa-2x'></i>
@@ -301,52 +331,96 @@ include('body/navbar.php');
                                     					</div>
                                     				</div>	
                                     		</div>";
-                                    }
                                 }
-                                ?>
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Archive -->
+                <div class="row">
+                    <div class="col">
+                        <div class="collapse multi-collapse" id="multiCollapseExample1">
+                            <div class="card card-body">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Contact</th>
+                                            <th>Event</th>
+                                            <th>Checkin</th>
+                                            <th>Checkout</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <?php
+                                        $query = 'SELECT * FROM tbl_decline';
+                                        $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+
+                                        while ($row = mysqli_fetch_assoc($result)) {
+
+                                            echo '<tr>';
+                                            echo '<td>' . $row['firstname'] . ' ' . $row['lastname'] . '</td>';
+                                            echo '<td>' . $row['mail'] . '</td>';
+                                            echo '<td>' . $row['contact'] . '</td>';
+                                            echo '<td>' . $row['Event'] . '</td>';
+                                            echo '<td>' . $row['checkin'] . '</td>';
+                                            echo '<td>' . $row['checkout'] . '</td>';
+                                            echo '</tr> ';
+                                        }
+                                        ?>
+
+                                    </tbody>
+                                </table>
+
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Add Event -->
-        <div class="modal fade" id="myEvent">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header" style="background-color: #FEEAE6;">
-                        <h4 style="color:black" class="modal-title"> <i class='fas fa-book' style='font-size:48px;color:black'>&nbsp;</i>Event</h4>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Reservation -->
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12">
-                                <div class="panel panel-primary">
-                                    <div class="panel-body">
-                                        <form name="form" action="code.php" method="POST" enctype="multipart/form-data">
-                                            <div class="form-group">
-                                                <label>Event</label>
-                                                <input name="event" class="form-control" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Description</label>
-                                                <input name="description" class="form-control" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Image</label>
-                                                <input type="file" name="image" class="form-control" required> 
-                                            </div>
-                                    </div>
+
+
+    <!-- Add Event -->
+    <div class="modal fade" id="myEvent">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #FEEAE6;">
+                    <h4 style="color:black" class="modal-title"> <i class='fas fa-book' style='font-size:48px;color:black'>&nbsp;</i>Event</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- Reservation -->
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-body">
+                                    <form name="form" action="code.php" method="POST" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label>Event</label>
+                                            <input name="event" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <input name="description" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Image</label>
+                                            <input type="file" name="image" class="form-control" required>
+                                        </div>
                                 </div>
                             </div>
-
+                        </div>
+                        <div class="container">
                             <div class="container">
-                                <div class="container">
-                                    <div class="col-md-16 col-sm-16">
-                                        <button type="submit" name="addevent" class="btn btn-primary pull-right">Submit</button>
-                                        </form>
-                                    </div>
+                                <div class="col-md-16 col-sm-16">
+                                    <button type="submit" name="addevent" class="btn btn-primary pull-right">Submit</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

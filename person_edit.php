@@ -1,7 +1,8 @@
 <?php
 include('security.php');
-include('body_customer/cheader.php');
-include('body_customer/cnavbar.php');
+
+include('body/header.php');
+include('body/navbar.php');
 ?>
 
 <style>
@@ -51,7 +52,7 @@ if (isset($_GET['ID'])) {
                     		<p><?php echo $row['level']; ?></p>
 
                             <button type="submit" name="update_info" class="btn btn-success form-control">Save</button>
-<hr>
+                            <hr>
                 		</div>
             		</div>
                 </div>    
@@ -142,7 +143,6 @@ function myFunction() {
 
 }
 </script>
-
 
 
 <?php

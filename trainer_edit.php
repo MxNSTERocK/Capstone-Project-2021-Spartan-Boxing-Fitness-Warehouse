@@ -1,6 +1,7 @@
 <?php 
 include('security.php');
-include('body/header.php');
+
+include('body/header.php'); 
 include('body/navbar.php');
 ?>
 
@@ -15,9 +16,10 @@ include('body/navbar.php');
         <div class="card-body">
 
             <?php
+
             if (isset($_POST['edit_btn'])) {
                 $id = $_POST['edit_id'];
-                $query = "SELECT * FROM tbl_trainer WHERE ID = '$id' ";
+                $query = "SELECT * FROM tbl_admin WHERE ID = '$id' ";
                 $query_run = mysqli_query($connection, $query);
 
                 foreach ($query_run as $row) {
@@ -26,7 +28,7 @@ include('body/navbar.php');
                         <input type="hidden" name="ID" value="<?php echo $row['ID'] ?>">
                         <div class="form-group">
                             <label> Trainer's name </label>
-                            <input type="text" name="trainer" value="<?php echo $row['trainer'] ?>" class="form-control" placeholder="Enter Username">
+                            <input type="text" name="trainer" value="<?php echo $row['firstname'] .' '.$row['lastname'] ?>" class="form-control" placeholder="Enter Username">
                         </div>
                         
                         <button type="submit" name="updatebtn" class="btn btn-success">Update</button>
@@ -34,7 +36,7 @@ include('body/navbar.php');
                     </form>
             <?php
                 }
-            }
+            } 
             ?>
         </div>
     </div>

@@ -1,5 +1,5 @@
 <?php
-include('security.php');
+include('membership_security.php'); 
 
 include('body_customer/cheader.php');
 include('body_customer/cnavbar.php');
@@ -44,26 +44,10 @@ include('body_customer/cnavbar.php');
                         </div>
                     </div>
 
-                    <?php
-                    $firstname = $_SESSION['username'];
-                    
-                    $query = "SELECT * FROM tbl_admin WHERE email = '$firstname' ";
-                    $fecth_run = mysqli_query($connection, $query);
-
-                    while($row = mysqli_fetch_array($fecth_run)) {
-                    ?>
-
                     <div class="col-xl-12 col-md-12 mb-12">
                         <form name="form" action="membership_access.php" method="POST">
                             <fieldset>
                                 <legend>Personal Information</legend>
-                                <div class="form-group">
-                                    <label>Id</label>
-                                    <input type="number" class="form-control" name="ID" value="<?php echo $row['ID']; ?>"  readonly>
-                                </div>
-                                <?php 
-                    }
-                                ?>
                                 <div class="form-group">
                                     <label>Firstname</label>
                                     <input name="firstname" class="form-control" required>
@@ -78,7 +62,7 @@ include('body_customer/cnavbar.php');
                                 </div>
                                 <div class="form-group">
                                     <label>Contact</label>
-                                    <input name="contact" type="number" class="form-control" required>
+                                    <input name="contact" type="number" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" class="form-control" required>
                                 </div>
 
                                 <?php

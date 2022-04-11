@@ -288,7 +288,7 @@ function is_code_correct($code)
 										</div>
 										<br style="clear: both;">
 										<div class="container">
-											<input type="submit" value="Next" class="form-control form-control-user btn-user btn-block" style="background-color:gray">
+										<input type="submit" value="Next" class="form-control form-control-user btn-user btn-block">
 										</div>
 										<br><br>
 									</form>
@@ -335,7 +335,7 @@ function is_code_correct($code)
 											<br style="clear: both;">
 
 											<div class="container">
-												<input type="submit" value="Next" class="form-control form-control-user" style="background-color:gray">
+												<input type="submit" value="Next" class="form-control form-control-user">
 											</div>
 											<a href="../login.php">
 												<!-- <input type="button" value="Start Over"> -->
@@ -392,7 +392,7 @@ function is_code_correct($code)
 											</div>
 											<br style="clear: both;">
 											<div class="container">
-												<input type="submit" value="Next" class="form-control form-control-user" style="background-color:gray">
+												<input type="submit" value="Next" class="form-control form-control-user">
 											</div>
 											<br><br>
 										</form>

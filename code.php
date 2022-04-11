@@ -14,6 +14,7 @@ if (isset($_POST['registerbtn'])) {
     $firstname = mysqli_real_escape_string($connection, $_POST['firstname']);
     $lastname = mysqli_real_escape_string($connection, $_POST['lastname']);
     $contact = mysqli_real_escape_string($connection, $_POST['contact']);
+    $level = mysqli_real_escape_string($connection, $_POST['level']);
     $image = mysqli_real_escape_string($connection, $_FILES['image']['name']);
 
     $hashed = md5($password);
@@ -35,10 +36,9 @@ if (isset($_POST['registerbtn'])) {
             $_SESSION['message'] = "Email Already Exist";
             header('location: admin.php');
         } else {
-            $level = 'admin';
-
+            
             if ($password === $confirmpassword) {
-                $query = "INSERT INTO tbl_admin(username,email,password,level,status,firstname,lastname,contact,image) VALUES ('$username','$email','$hashed','$level','$status','$firstname','$lastname','$contact','$image')";
+                $query = "INSERT INTO tbl_admin(username,email,password,status,firstname,lastname,contact,image,level) VALUES ('$username','$email','$hashed','$status','$firstname','$lastname','$contact','$image','$level')";
                 $query_run = mysqli_query($connection, $query);
             }
             if ($query_run) {
@@ -85,7 +85,7 @@ if (isset($_POST['updatebtn'])) {
 
     if ($username_validation == "Valid" && $email_validation == "Valid" && $password_validation == "Valid") {
 
-        $query = "UPDATE tbl_admin SET username='$username', email='$email' ,firstname='$firstname' ,lastname='$lastname', contact='$contact' WHERE ID='$id' "; // password remove
+        $query = "UPDATE tbl_admin SET username='$username', email='$email' ,firstname='$firstname' ,lastname='$lastname', contact='$contact' WHERE ID='$id' ";
         $query_run = mysqli_query($connection, $query);
 
         if ($query_run) { // query condition
@@ -101,40 +101,17 @@ if (isset($_POST['updatebtn'])) {
     }
 }
 
-// for administrator login
-
-// if (isset($_POST['login_btn'])) {
-
-//     $email = mysqli_real_escape_string($connection, $_POST['email']);
-//     $password = mysqli_real_escape_string($connection, $_POST['password']);
-//     $hashed = md5($password);
-
-//     if (!empty($email) || !empty($password)) {
-
-//         $query = "SELECT * FROM tbl_admin WHERE email='$email' AND password='$hashed' LIMIT 1";
-//         $query_run = mysqli_query($connection, $query);
-//         $status = mysqli_fetch_array($query_run);
-
-//         if ($status['status'] ==  1) {
-//             $_SESSION['username'] = $email;
-//             header('location: dashboard.php');
-//         } else {
-//             $_SESSION['message'] = "Invalid Credential";
-//             header('location: login.php');
-//         }
-//     }
-// }
-
-// /////////////////////////////
+// FOR LOGIN ADMINISTRATOR / TRAINER / USER
 
 if (isset($_POST['login_btn'])) {
 
+    $firstname = mysqli_real_escape_string($connection, $_POST['firstname']);
     $email = mysqli_real_escape_string($connection, $_POST['email']);
     $password = mysqli_real_escape_string($connection, $_POST['password']);
     $hashed = md5($password);
 
 
-    $login = mysqli_query($connection, "SELECT * FROM tbl_admin WHERE email='$email' AND password='$hashed'");
+    $login = mysqli_query($connection, "SELECT * FROM tbl_admin WHERE email='$email' AND password='$hashed' AND status = 1");
     $cek = mysqli_num_rows($login);
 
     if ($cek > 0) {
@@ -142,23 +119,22 @@ if (isset($_POST['login_btn'])) {
         $data = mysqli_fetch_assoc($login);
 
         if ($data['level'] == "admin") {
-
             $_SESSION['username'] = $email;
-            $_SESSION['level'] = "admin";
-            header("location:dashboard.php");
-        } else if ($data['level'] == "customer") {
-            $_SESSION['username'] = $email;
-            $_SESSION['level'] = "customer";
-            header("location:customer.php");
+            // $_SESSION['level'] = "admin";
+            header("location:   dashboard.php");
+        } 
+        else if ($data['level'] == "customer") {
+            $_SESSION['firstname'] = $email;
+            // $_SESSION['level'] = "customer";
+            header("location:   customer.php");
         }
-        // else if($data['level']=="pengurus"){
-        // 	$_SESSION['username'] = $username;
-        // 	$_SESSION['level'] = "pengurus";
-        // 	header("location:halaman_pengurus.php");
-
+        // else if($data['level']=="trainer"){
+        // 	$_SESSION['id'] = $email;
+        // 	$_SESSION['level'] = "trainer";
+        // 	header("location:   trainer_dashboard.php");
         // }
         else {
-            // $_SESSION['error'] = "Invalid Credential";
+            // $_SESSION['error'] = "Your status is inactive";
             // header("location:login.php");
         }
     } else {
@@ -169,17 +145,12 @@ if (isset($_POST['login_btn'])) {
 
 // ////////////////////////////
 
-
-
-
-
-
-
 // For admin Logout
 
-if (isset($_POST['logout_btn'])) {
-    session_destroy();
+if (isset($_POST['admin_logout'])) {
+    // session_destroy();
     unset($_SESSION['username']);
+    // session_unset();
     header('location: login.php');
 }
 
@@ -379,6 +350,7 @@ if (isset($_POST['event_update'])) {
 
     $id = mysqli_real_escape_string($connection, $_POST['ID']);
     $event = mysqli_real_escape_string($connection, $_POST['event']);
+    $description = mysqli_real_escape_string($connection, $_POST['description']);
     $status = mysqli_real_escape_string($connection, $_POST['status']);
     $image = mysqli_real_escape_string($connection, $_FILES['image']['name']);
 
@@ -391,7 +363,7 @@ if (isset($_POST['event_update'])) {
         header('location: reservation.php');
     } else {
 
-        $query = "UPDATE tbl_event SET event='$event', image = '$image' WHERE ID='$id' ";
+        $query = "UPDATE tbl_event SET event='$event', description = '$description', image = '$image' WHERE ID='$id' ";
         $query_run = mysqli_query($connection, $query);
 
         if ($query_run) {
@@ -601,3 +573,51 @@ if (isset($_POST['update_tariner'])) {
         header('location: dashboard.php');
     }
 }
+
+if (isset($_post['archive'])) {
+    $query = mysqli_query($conn, "SELECT * FROM `tbl_admin`");
+    $date = date("Y-m-d");
+    while($fetch = mysqli_fetch_array($query)){
+        if($fecth === 0){
+            mysqli_query($conn, "INSERT INTO `tbl_archive` VALUES('', '$fetch[username]', '$fetch[email]', '$fetch[password]', '$fetch[level]', '$fetch[status]','$fetch[contact]' ,'$fetch[lastname]' ,'$fetch[firstname]', '$fetch[image]','$fetch[created]')") or die(mysqli_error($connection));
+            mysqli_query($conn, "DELETE FROM `tbl_admin` WHERE `ID` = '$fetch[ID]'") or die(mysqli_error($connection));
+        }
+    }
+}
+
+// profile
+
+if (isset($_POST['profile_edit'])) {
+
+    $id = mysqli_real_escape_string($connection, $_POST['ID']);
+    $firstname = mysqli_real_escape_string($connection, $_POST['firstname']);
+    $lastname = mysqli_real_escape_string($connection, $_POST['lastname']);
+    $email = mysqli_real_escape_string($connection, $_POST['email']);
+    $contact = mysqli_real_escape_string($connection, $_POST['contact']);
+
+    $image = mysqli_real_escape_string($connection, $_FILES['image']['name']);
+
+    $allowed_extension = array('gif', 'png', 'jpg', 'jpeg');
+    $filename = $_FILES['image']['name'];
+    $file_extension = pathinfo($filename, PATHINFO_EXTENSION);
+
+    if (!in_array($file_extension, $allowed_extension)) {
+        $_SESSION['message'] = "Invalid File Format" .$filename;
+        header('location: profile.php');
+    } else {
+
+        $query = "UPDATE tbl_admin SET firstname='$firstname', lastname='$lastname', email='$email', contact='$contact', image='$image' WHERE ID='$id' ";
+        $query_run = mysqli_query($connection, $query);
+
+        if ($query_run) {
+            move_uploaded_file($_FILES['image']['tmp_name'], "img/customer_image/" .$_FILES['image']['name']);
+            $_SESSION['status'] = "Successfully Updated";
+            header('location: profile.php');
+        } else {
+            $_SESSION['message'] = "Sorry Try again!";
+            header('location: profile.php');
+        }
+    }
+}
+
+?>

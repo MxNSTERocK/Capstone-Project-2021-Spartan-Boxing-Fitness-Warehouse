@@ -32,17 +32,17 @@ include('body/navbar.php');
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add New Member</h5>
+                    <!-- <h5 class="modal-title" id="exampleModalLabel">Add New Member</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button>
+                    </button> -->
                 </div>
 
                 <form action="code.php" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="form-group">
                             <label> Firstname </label>
-                            <input type="text" name="firstname" class="form-control" placeholder="Enter your firstname" onkeyup="this.value = this.value.toUpperCase();" required>
+                            <input type="text" name="firstname" class="form-control" placeholder="Enter your firstname" required>
                         </div>
                         <div class="form-group">
                             <label>Lastname</label>
@@ -54,7 +54,7 @@ include('body/navbar.php');
                         </div>
                         <div class="form-group">
                             <label>Contact</label>
-                            <input type="number" name="contact" class="form-control" placeholder="Enter Contact number" required>
+                            <input type="number" name="contact" class="form-control" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" placeholder="Enter Contact number" required>
                         </div>
                         <div class="form-group">
                             <label>Email</label>
@@ -79,10 +79,10 @@ include('body/navbar.php');
                                     <input type="radio" name="type" value="Senior/Student" required />Senior/Student
                                 </label>
                             </div>
-                            <!-- <div class="col-md-6 col-xs-6">
+                            <div class="col-md-6 col-xs-6">
                                 <label>Import Picture</label>
                                 <input type="file" name="image" class="form-control-file" required>
-                            </div> -->
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Note/Comment</label>
@@ -103,7 +103,7 @@ include('body/navbar.php');
     <div class="container-fluid">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-            <h4 class="m-2 font-weight-bold text-primary">Membership</h4> 
+                <h4 class="m-2 font-weight-bold text-primary">Membership</h4>
                 <h6 class="m-0 font-weight-bold text-success">
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addmember">
                         <i class="fa fa-user-plus"></i>
@@ -123,30 +123,38 @@ include('body/navbar.php');
                             <thead>
                                 <tr style="background-color: #faf1f0;">
                                     <th>Name</th>
-                                    <th>Address</th>
+                                    <th>Email</th>
                                     <th>Status</th>
                                     <th>Type</th>
-                                    <th>Join</th>
+                                    <th>Address</th>
                                     <th>Expire</th>
-                                    <th>Action</th>
+                                    <th>View</th>
+                                    <th>Edit</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                 if (mysqli_num_rows($query_run) > 0) {
-                                    while ($row = mysqli_fetch_assoc($query_run)) { ?>
+                                    while ($row = mysqli_fetch_assoc($query_run)) { 
+
+                                        date_default_timezone_set('Asia/manila');
+                                        $today = date("Y-m-d"); ?>   
+
                                         <tr>
                                             <td><?php echo $row['firstname'] . ' ' . $row['lastname']; ?> </td>
-                                            <td><?php echo $row['address']; ?></td>
-                                            <td><?php
-                                                if ($row['status'] == 1) {
-                                                    echo '<p><i class="fa fa-circle text-success"></i><a href="active.php?ID=' . $row['ID'] . '&status=0">Active</a></p>';
+                                            <td><?php echo $row['emails']; ?></td>
+                                            
+                                                <?php
+                                                if ($row['membership_end'] > $today) {
+                                                //    echo '<p><i class="fa fa-circle text-success"></i><a href="active.php?ID=' . $row['ID'] . '&status=0">Active</a></p>';
+                                                   echo "<td style='background-color: #00FF00;'>" . $row['membership_end'] . "</td>";
                                                 } else {
-                                                    echo '<p><i class="fa fa-circle text-danger"></i><a href="active.php?ID=' . $row['ID'] . '&status=1">Inactive</a></p>';
+                                                    echo "<td style='background-color: red;'>" . $row['membership_end'] . "</td>";
                                                 }
-                                                ?></td>
+                                                ?>
+                                            
                                             <td><?php echo $row['type']; ?></td>
-                                            <td><?php echo $row['membership_start']; ?></td>
+                                            <td><?php echo $row['address']; ?></td>
                                             <td><?php echo $row['membership_end']; ?></td>
 
                                             <td>
@@ -154,6 +162,8 @@ include('body/navbar.php');
                                                     <input type="hidden" name="view_id" value="<?php echo $row['ID']; ?>">
                                                     <button type="submit" name="view" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></button>
                                                 </form>
+                                            </td>
+                                            <td>
                                                 <form action="membership_edit.php" method="POST">
                                                     <input type="hidden" name="update_id" value="<?php echo $row['ID']; ?>">
                                                     <button type="submit" name="update" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></button>

@@ -46,10 +46,6 @@ include('body/navbar.php');
                             <input type="email" name="email" value="<?php echo $row['email'] ?>" class="form-control" placeholder="Enter Email">
                             <small class="error_email" style="color: red;"></small>
                         </div>
-                        <!-- <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" name="password" value="<?php echo $row['password'] ?>" class="form-control" placeholder="Enter Email">
-                        </div> -->
                         
                         <button type="submit" name="updatebtn" class="btn btn-success">Update</button>
                         <a href="admin.php" class="btn btn-danger">Cancel</a>
@@ -62,7 +58,6 @@ include('body/navbar.php');
     </div>
 </div>
 </div>
-
     <script src="material/jquery/jquery.min.js"></script>
     <script src="material/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="material/jquery-easing/jquery.easing.min.js"></script>

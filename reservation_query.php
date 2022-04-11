@@ -55,93 +55,126 @@ if (!isset($_GET["rid"])) {
 
 <body>
     <div class="container">
-    <div id="page-inner">
-        <div class="row">
-            <div class="col-md-12">
-                <h1 class="page-header">
-                    Reservation Information<small> &nbsp; <?php echo  $curdate; ?> </small>
-                </h1>
-            </div>
-            <div class="col-md-8 col-sm-8">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        Booking Confirmation
-                    </div>
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <tr>
-                                    <th>DESCRIPTION</th>
-                                    <th>INFORMATION</th>
-                                </tr>
-                                <tr>
-                                    <th>Name</th>
-                                    <th><?php echo $id . " " . $firstname . " " . $lastname; ?> </th>
-                                </tr>
-                                <tr>
-                                    <th>Email</th>
-                                    <th><?php echo $email; ?> </th>
-                                </tr>
-                                <tr>
-                                    <th>Contact </th>
-                                    <th><?php echo $contact; ?></th>
-                                </tr>
-                                <tr>
-                                    <th>Event </th>
-                                    <th><?php echo $event;  ?></th>
-                                </tr>
-                                <tr>
-                                    <th>Checkin </th>
-                                    <th><?php echo $checkin; ?></th>
-                                </tr>
-                                <tr>
-                                    <th>Checkout </th>
-                                    <th><?php echo $checkout; ?></th>
-                                </tr>
-                                <tr>
-                                    <th>status </th>
-                                    <th><?php echo $status; ?></th>
-                                </tr>
-                                <tr>
-                                    <th># of Days </th>
-                                    <th><?php echo $days; ?></th>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="panel-footer">
-                        <form method="POST">
-                            <div class="form-group">
-                                <label>Select the Conformation</label>
-                                <select name="conf" class="form-control">
-                                    <option value selected> </option>
-                                    <option value="Conform">Conform</option>
-                                </select>
+        <div class="col-xl-12 col-md-12 mb-12">
+            <div class="card border shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                <h1 class="page-header">
+                                    Reservation Information<small> &nbsp; <?php echo  $curdate; ?> </small>
+                                </h1>
                             </div>
-                            <button type="submit" name="co" value="Conform" class="btn btn-success pull-right" onclick="pop">Submit</button>
-                            
-                        </form>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <div class="row">
+                                    <div class="col-md-5">
+
+                                    </div>
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">
+                                                Booking Confirmation
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <tr>
+                                                            <th>DESCRIPTION</th>
+                                                            <th>INFORMATION</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th><?php echo $id . " " . $firstname . " " . $lastname; ?> </th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Email</th>
+                                                            <th><?php echo $email; ?> </th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Contact </th>
+                                                            <th><?php echo $contact; ?></th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Event </th>
+                                                            <th><?php echo $event;  ?></th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Checkin </th>
+                                                            <th><?php echo $checkin; ?></th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Checkout </th>
+                                                            <th><?php echo $checkout; ?></th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>status </th>
+                                                            <th><?php echo $status; ?></th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th># of Days </th>
+                                                            <th><?php echo $days; ?></th>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="panel-footer">
+                                                <form method="POST">
+                                                    <div class="form-group">
+                                                        <label>Select the Conformation</label>
+                                                        <select name="conf" class="form-control">
+                                                            <option value selected> </option>
+                                                            <option value="Conform">Conform</option>
+                                                            <option value="Decline">Decline</option>
+                                                        </select>
+                                                    </div>
+                                                    <button type="submit" name="co" value="Conform" class="btn btn-success pull-right" onclick="pop">Submit</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     </div>
-</div>
 
-<?php
-if (isset($_POST['co'])) {
-    $st = $_POST['conf'];
+    <?php
+    if (isset($_POST['co'])) {
+        $st = $_POST['conf'];
 
-    if ($st == "Conform") {
-        $urb = "UPDATE `tbl_reservation` SET `status`='$st' WHERE ID = '$id'";
-        $query_run = mysqli_query($connection, $urb);
-        echo "<script type='text/javascript'> alert('Booking Conform')</script>";
-        echo "<script type='text/javascript'> window.location='reservation.php'</script>";
+        if ($st == "Conform") {
+            $urb = "UPDATE `tbl_reservation` SET `status`='$st' WHERE ID = '$id'";
+            $query_run = mysqli_query($connection, $urb);
+            echo "<script type='text/javascript'> alert('Booking Conform')</script>";
+            echo "<script type='text/javascript'> window.location='reservation.php'</script>";
+        } else if ($st == "Decline") {
+            $query = mysqli_query($connection, "SELECT * FROM `tbl_reservation`");
+            while ($fetch = mysqli_fetch_array($query)) {
+                mysqli_query($connection, "INSERT INTO tbl_decline (ID,firstname,lastname,mail,contact,Event,checkin,checkout,status,days)  SELECT ID,firstname,lastname,mail,contact,Event,checkin,checkout,status,days FROM tbl_reservation WHERE ID='$id'");
+                mysqli_query($connection, "DELETE FROM `tbl_reservation` WHERE ID = '$id'");
+                // $urb = "DELETE FROM `tbl_reservation` WHERE ID = '$id'";
+                // $run = mysqli_query($connection, $urb);
+                echo "<script type='text/javascript'> alert('Successfully Decline')</script>";
+                echo "<script type='text/javascript'> window.location='reservation.php'</script>";
+            }
+        }
     }
-}
-?>
-    
+    ?>
+
+    <script>
+        function confirmation(delName) {
+            var del = confirm("Are you sure you want to delete this record?\n" + delName);
+            if (del == true) {
+                window.location.href = "reservation.php";
+            }
+            return del;
+        }
+    </script>
+
     <!-- jQuery Js -->
     <script src="reservation/admin/assets/js/jquery-1.10.2.js"></script>
     <!-- Bootstrap Js -->

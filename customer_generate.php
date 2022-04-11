@@ -1,5 +1,5 @@
 <?php
-include('security.php');
+include('membership_security.php'); 
 
 include('body_customer/cheader.php');
 include('body_customer/cnavbar.php');
@@ -37,7 +37,6 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-	<center><h3><strong>Quick Response (QR) Code Generator</strong></h3></center>
 	<div class="container">
 	<div class="qr-field">
 			<center>
@@ -58,7 +57,7 @@ if (isset($_POST['submit'])) {
 	</div>
 	<div class="input-field">
 		<br>
-	<center><h3>Please Fill-out All Fields</h3>
+	<center>
 		<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 		<div class="form-group">
 				<label>Name</label>
@@ -83,13 +82,15 @@ if (isset($_POST['submit'])) {
 		</form>	
 	</center>
 	</div>
+	</div>
+		</div>
 	<?php
 	if (!isset($filename)) {
 		$filename = "TechSu";
 	}
 	?>
 
-</div>
+
 </body>
 
 </html>
