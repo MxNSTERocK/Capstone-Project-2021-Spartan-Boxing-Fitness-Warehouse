@@ -100,7 +100,7 @@ if (isset($_POST['reg_user'])) {
 
 if (isset($_POST['customer_logout'])) {
     // session_destroy();
-    unset($_SESSION['firstname']);
+    unset($_SESSION['ID']);
     header('location: login.php');
 }
 

@@ -40,7 +40,7 @@ if (isset($_GET['ID'])) {
                 		    <br>
                             <div class=" image d-flex flex-column justify-content-center align-items-center"> 
                             <button class="btn btn-light"> <img src="img/customer_image/<?php echo $row['image'] ?>" height="100" width="100" /></button> 
-                            <form action="membership_access.php" method="POST" enctype="multipart/form-data">
+                            <form action="membership_access.php" method="POST" enctype="multipart/form-data"> 
                             <input type="hidden" name="ID" value="<?= $row['ID'] ?>">
                             <label for="file-upload" class="custom-file-upload"> Choose File</label>
                             <input type="file" id="file-upload" name="image" value="<?php echo $row['image']; ?> class="form-control">
@@ -63,7 +63,6 @@ if (isset($_GET['ID'])) {
                         	<div class="col-sm-8">
                             	<p class="font-weight-bold">Email:</p>
                                 <h6><input type="text" id="myInput" name="email" value="<?php echo $row['email'] ?>" class="form-control" readonly="readonly" ></h6>
-                                <!-- <p>Changes in email will lead in a sign out.<i class="fas fa-toggle-on" id="myButton" data-toggle="modal" data-target="#exampleModal" onclick="myFunction()"></i></p> -->
                         	</div>
                         	<div class="col-sm-3">
                             	<p class="font-weight-bold">Phone:</p>

@@ -124,7 +124,7 @@ if (isset($_POST['login_btn'])) {
             header("location:   dashboard.php");
         } 
         else if ($data['level'] == "customer") {
-            $_SESSION['firstname'] = $email;
+            $_SESSION['ID'] = $email;
             // $_SESSION['level'] = "customer";
             header("location:   customer.php");
         }

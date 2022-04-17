@@ -79,19 +79,19 @@ include('body/navbar.php');
 <div class="modal fade" id="addadminprofile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header" style="background-color: #faf1f0;">
+            <div class="modal-header bg-dark">
                 <h5 class="modal-title" id="exampleModalLabel"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="code.php" method="POST" enctype="multipart/form-data">
+            <form action="code.php" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
 
                 <div class="modal-body">
                 <div class="row">
                 <div class="col-md-6">
-                        <label> Username </label>
-                        <input type="text" name="username" class="form-control" placeholder="Enter Username" required>
+                        <label for="validationCustom01" class="form-label"> Username </label>
+                        <input type="text" name="username" class="form-control" id="validationCustom01" class="form-control" placeholder="Enter Username" required>
                     </div>
                     <div class="col-md-6">
                         <label> Firstname </label>
@@ -111,9 +111,9 @@ include('body/navbar.php');
                         <small class="error_email" style="color: red;"></small>
                     </div>
                     <div class="col-md-6">
-                    <label>Level</label>
-                    <select class="form-select form-select-lg mb-3" name="level" class="form-control" aria-label=".form-select-lg example">
-                        <option selected>Select level of user</option>
+                    <label for="validationServer04" class="form-label">Level</label>
+                    <select class="form-select form-select-lg mb-3" name="level" class="form-select is-invalid" id="validationServer04" aria-describedby="validationServer04Feedback" required>
+                        <option selected disabled value="">Select level of user</option>
                         <option value="admin">Admin</option>
                         <!-- <option value="trainer">Trainer</option> -->
                         <option value="customer">Customer</option>
@@ -396,6 +396,29 @@ include('body/navbar.php');
             length.classList.add("invalid");
         }
     }
+</script>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
 </script>
 
 <script src="material/bootstrap/js/bootstrap.bundle.min.js"></script>

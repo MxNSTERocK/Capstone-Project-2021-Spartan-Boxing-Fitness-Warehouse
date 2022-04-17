@@ -8,8 +8,9 @@ session_start();
 <head>
     <title> Registration </title>
     <link href="css/googleapis.css" rel="stylesheet" />
-<link href="css/mdb.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/material-dashboard.css">
+    <!-- <link href="css/mdb.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/material-dashboard.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
 </head>
@@ -125,32 +126,32 @@ session_start();
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                 <hr>
                                 <div class="container">
-                                    <form action="membership_access.php" method="POST" enctype="multipart/form-data">
-                                        <div class="input-group">
-                                            <label>Enter Username</label>
-                                            <input type="text" name="username" required>
+                                    <form action="membership_access.php" method="POST" class="row g-3 needs-validation" enctype="multipart/form-data" novalidate>
+                                    <div class="col-md-4">
+                                            <label for="validationCustom01" class="form-label">User name</label>
+                                            <input type="text" name="username" class="form-control" id="validationCustom01" required>
                                         </div>
-                                        <div class="input-group">
-                                            <label>Firstname</label>
-                                            <input type="text" name="firstname" required>
+                                        <div class="col-md-4">
+                                            <label for="validationCustom02" class="form-label">Firstname</label>
+                                            <input type="text" name="firstname" class="form-control" id="validationCustom02" required>
                                         </div>
-                                        <div class="input-group">
-                                            <label>Lastname</label>
-                                            <input type="text" name="lastname" required>
+                                        <div class="col-md-4">
+                                            <label for="validationCustom03" class="form-label">Lastname</label>
+                                            <input type="text" name="lastname" class="form-control" id="validationCustom03" required>
                                         </div>
-                                        <div class="input-group">
-                                            <label>Email</label>
-                                            <input type="email" name="email" required>
+                                        <div class="col-md-12">
+                                            <label for="validationCustom04" class="form-label" id="exampleInputEmail1" aria-describedby="emailHelp">Email address</label>
+                                            <input type="email" name="email" class="form-control" id="validationCustom04" required>
+                                            <div id="emailHelp" class="form-text"><h6 style="color: red;">We'll never share your email with anyone else.</h6></div>
                                         </div>
-                                        <div class="input-group">
-                                            <label>Contact</label>
-                                            <input type="number" name="contact" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" required>
+                                        <div class="col-md-6">
+                                            <label for="validationCustom05" class="form-label">Contact</label>
+                                            <input type="number" name="contact" class="form-control" id="validationCustom05" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" required>
                                         </div>
-                                        <input type="hidden" name="role" value="Member">
 
-                                        <div class="input-group">
-                                            <label>Enter Password</label>
-                                            <input type="password" name="password" id="psw" minlength="8" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$" required>
+                                        <div class="col-md-6">
+                                            <label for="validationCustom06" class="form-label">Enter Password</label>
+                                            <input type="password" name="password" class="form-control" id="psw" minlength="8" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$" required>
                                         </div>
 
                                         <div id="message">
@@ -160,17 +161,19 @@ session_start();
                                             <p id="length" class="invalid">Minimum <b>8 characters</b></p>
                                         </div>
 
-                                        <div class="input-group">
-                                            <label>Confirm password</label>
-                                            <input type="password" name="confirm" required>
+                                        <div class="col-md-6">
+                                            <label>Image</label>
+                                            <input type="file" name="image" class="form-control" aria-label="file example" required>
+                                            <div class="invalid-feedback">Choose profile picture</div>
                                         </div>
 
-                                        <div class="input-group">
-                                            <label>Image</label>
-                                            <input type="file" name="image" required>
+                                        <div class="col-md-6">
+                                            <label for="validationCustom07" class="form-label">Confirm password</label>
+                                            <input type="password" name="confirm" class="form-control" id="validationCustom07" required>
                                         </div>
-                                        <div class="input-group">
-                                            <button type="submit" class="btn btn-primary btn-user btn-block" name="reg_user"> Register </button>
+
+                                        <div class="col-md-12">
+                                            <button type="submit" class="form-control form-control-user btn-user btn-block btn btn-primary" name="reg_user"> Register </button>
                                         </div>
                                         <hr>
                                         <br>
@@ -252,6 +255,29 @@ session_start();
             length.classList.add("invalid");
         }
     }
+</script>
+
+<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
 </script>
 
 <script src="js/sweetalert.js"></script>

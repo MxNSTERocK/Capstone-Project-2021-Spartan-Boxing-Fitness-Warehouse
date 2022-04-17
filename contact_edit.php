@@ -24,7 +24,7 @@ include('body/navbar.php');
     $query = "SELECT * FROM tbl_covid19 WHERE ID = '$id' ";
     $query_run = mysqli_query($connection,$query);
 
-    foreach($query_run as $row) {    
+    foreach($query_run as $row) {
     ?>
 
             <form action="code.php" method="POST">

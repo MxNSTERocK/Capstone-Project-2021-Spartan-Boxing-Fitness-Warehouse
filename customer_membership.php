@@ -1,28 +1,18 @@
 <?php
-include('membership_security.php'); 
+include('membership_security.php');
 
 include('body_customer/cheader.php');
 include('body_customer/cnavbar.php');
 ?>
 
-<!-- <link href="css/googleapis.css" rel="stylesheet" />
-<link href="css/mdb.css" rel="stylesheet" /> -->
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
 
 <style>
-    fieldset {
-        background-color: #eeeeee;
-        box-sizing: border-box;
-        padding: 1px 5px 10px;
-    }
-
-    legend {
-        background-color: #5bc0de;
-        color: white;
-        padding: 1px 5px 10px 20px 40px 80px 100px;
-    }
-
-    input {
-        margin: 0px;
+    label {
+        color: black;
     }
 </style>
 
@@ -33,7 +23,9 @@ include('body_customer/cnavbar.php');
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                            <legend style="color: black;">Form for membership</legend>
                         </div>
+                        <hr>
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto">
                                 <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
@@ -41,68 +33,115 @@ include('body_customer/cnavbar.php');
                             </div>
                         </div>
                     </div>
-                        <div class="col-xl-12 col-md-12 mb-12">
-                            <form action="membership_access.php" method="POST" enctype="multipart/form-data">
-                                <fieldset>
-                                    <legend>Membership Registration</legend>
-                                <div class="form-group">
-                                    <label> Firstname </label>
-                                    <input type="text" name="firstname" class="form-control" placeholder="Enter your firstname" onkeyup="this.value = this.value.toUpperCase();" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Lastname</label>
-                                    <input type="text" name="lastname" class="form-control checking_email" placeholder="Enter your lastname" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Address</label>
-                                    <input type="text" name="address" class="form-control" placeholder="Enter your address" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Contact</label>
-                                    <input type="number" name="contact" class="form-control" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" placeholder="Enter Contact number" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="email" name="email" class="form-control" value="<?php echo $_SESSION['firstname']; ?>" placeholder="Enter your valid Email address">
-                                    <small class="error_email" style="color: red;"></small>
-                                </div>
-                                <div class="form-group">
-                                    <label>Membership join</label>
-                                    <input type="date" name="membership_start" class="form-control" required>
-                                </div>
-                                <!-- <div class="form-group">
-                                    <label>Membership Expire</label>
-                                    <input type="date" name="membership_end" class="form-control" required>
-                                </div> -->
-                                <div class="row">
-                                    <div class="col-md-6 col-xs-6">
-                                        <label>Membership Type:</label>
-                                        <label class="container">Annual
-                                            <input type="radio" name="type" value="Annual" />
-                                        </label>
-                                        <label class="container">Senior/Student
-                                            <input type="radio" name="type" value="Senior/Student" />
-                                        </label>
-                                    </div>
-                                    <div class="col-md-6 col-xs-6">
-                                        <label>Import Picture</label>
-                                        <input type="file" name="proof" class="form-control-file" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Note/Comment</label>
-                                    <textarea type="text" name="note" class="form-control" cols="2" rows="2" required></textarea>
-                                </div>
 
-                                <button type="submit" name="register" class="btn btn-info">Save</button>
-                                </fieldset>
-                            </form>
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Terms and condition</h5>
+                                </div>
+                                <div class="modal-body">
+                                    ...
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-info" data-bs-dismiss="modal">Agree</button>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+
+                    <form action="membership_access.php" class="row g-3 needs-validation" method="POST" enctype="multipart/form-data" novalidate>
+                        <div class="col-md-6">
+                            <label for="validationCustom01" class="form-label">First name</label>
+                            <input type="text" name="firstname" class="form-control" id="validationCustom01" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="validationCustom02" class="form-label">Last name</label>
+                            <input type="text" name="lastname" class="form-control" id="validationCustom02" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="validationCustomUsername" class="form-label">Address</label>
+                            <div class="input-group has-validation">
+                                <input type="text" name="address" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <label for="validationCustom03" class="form-label">Contact number</label>
+                            <input type="number" name="contact" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" class="form-control" id="validationCustom03" required>
+                        </div>
+                        <div class="col-md-7">
+                            <label for="validationCustom03" class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" id="validationCustom03" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="validationCustom03" class="form-label">Membership join</label>
+                            <input type="date" name="membership_start" class="form-control" id="validationCustom03" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Image</label>
+                            <input type="file" name="proof" class="form-control" aria-label="file example" required>
+                            <div class="invalid-feedback">Choose profile picture</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="validationCustom03" class="form-label">Membership type</label>
+                            <div class="col-md-9 col-xs-9">
+                                <input type="radio" class="form-check-input" id="validationFormCheck2" name="type" value="Annual" required>
+                                <label class="form-check-label" for="validationFormCheck2">Annual</label>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input type="radio" class="form-check-input" id="validationFormCheck3" name="type" value="Senior/Student" required>
+                                <label class="form-check-label" for="validationFormCheck3" value="Senior/Student">Senior/Student</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="validationCustom03" class="form-label">Note/Comment</label>
+                            <textarea type="text" name="note" class="form-control" id="validationCustom03" cols="2" rows="2" required></textarea>
+                        </div>
+                        &nbsp;
+                        <div class="col-12">
+                            <div class="form-check">
+                                <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" aria-describedby="invalidCheck3Feedback" data-bs-toggle="modal" data-bs-target="#staticBackdrop" required>
+                                <label class="form-check-label" for="invalidCheck3">
+                                    Agree to terms and conditions
+                                </label>
+                            </div>
+                        </div>
+                        &nbsp;
+                        <div class="col-12">
+                            <button type="submit" name="register" class="btn btn-info">Save</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-        &nbsp;
+    </div>
+    </div>
+    &nbsp;
 </center>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
 
 <script>
     function myFunction() {

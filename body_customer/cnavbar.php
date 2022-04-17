@@ -162,7 +162,7 @@
                 <li class="nav-item dropdown no-arrow mx-1">
                     <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black;">
                         <?php
-                        $firstname = $_SESSION['firstname'];
+                        $firstname = $_SESSION['ID'];
                         // echo $email;
                         $query = "SELECT * FROM tbl_customer WHERE email = '$firstname' ";
                         $result = mysqli_query($connection, $query);
@@ -246,7 +246,7 @@
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="mr-2 d-none d-lg-inline text-gray-600 small">
 
-                            <?php echo $_SESSION['firstname']; ?>
+                            <?php echo $_SESSION['ID']; ?>
 
                         </span>
                         <img class="img-profile rounded-circle" src="img/undraw_profile.svg">

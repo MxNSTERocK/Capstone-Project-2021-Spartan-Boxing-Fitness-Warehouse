@@ -20,13 +20,14 @@ $result = mysqli_query($connection,$query);
 $array = array();
 
 $file = fopen($filename,"w");
-$array = array("ID","CUSTOMER NAME","EMAIL","TEMPERATURE","TIME IN ","TIME OUT","LOG DATE");
+$array = array("ID","CUSTOMER NAME","EMAIL","CONTACT NUMBER","TEMPERATURE","TIME IN ","TIME OUT","LOG DATE");
 fputcsv($file,$array);
 
 while($row = mysqli_fetch_array($result)){
     $ID =$row['ID'];
     $CUSTOMER =$row['customer'];
     $EMAIL = $row['email'];
+    $NUMBER = $row['number'];
     $TEMPERATURE = $row['temperature'];
     $TIMEIN =$row['timein'];
     $TIMEOUT =$row['timeout'];

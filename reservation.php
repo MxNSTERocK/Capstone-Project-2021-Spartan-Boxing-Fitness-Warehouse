@@ -53,8 +53,7 @@ include('body/navbar.php');
 
                                         if ($row['status'] == 1) {
                                             echo '<p><div class="alert alert-success" id="avail"> <a href="availability.php?ID=' . $row['ID'] . '&status=0">Available</a></div></p>';
-                                        } 
-                                        else {
+                                        } else {
                                             echo '<p><div class="alert alert-danger" id="unavail"><a href="availability.php?ID=' . $row['ID'] . '&status=1">Unavailable</a></div></p>';
                                         }
                                         ?>
@@ -90,8 +89,7 @@ include('body/navbar.php');
             <div class="modal-content">
 
                 <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Reservation Form</h4>
+                <div class="modal-header bg-dark">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
@@ -102,40 +100,44 @@ include('body/navbar.php');
                         <div class="col-md-12 col-sm-12">
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
-                                    PERSONAL INFORMATION
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1 text-center">
+                                        <legend style="color: black;">Personal Information</legend>
+                                        <hr>
+                                    </div>
                                 </div>
-                                <hr>
+                         
                                 <div class="panel-body">
-                                    <form name="form" action="code.php" method="POST">
-                                        <div class="form-group">
-                                            <label>Firstname</label>
-                                            <input name="firstname" class="form-control" required>
+                                    <form name="form" action="code.php" method="POST" class="needs-validation g-3" novalidate>
+                                        <div class="col-md-6">
+                                            <label for="validationCustom01" class="form-label">Firstname</label>
+                                            <input name="firstname" class="form-control" id="validationCustom01" required>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="col-md-6">
                                             <label>Lastname</label>
                                             <input name="lastname" class="form-control" required>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="col-md-12">
                                             <label>Email</label>
-                                            <input name="mail" type="email" class="form-control" required>
+                                            <input type="email" name="mail" class="form-control" required>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="col-md-6">
                                             <label>Contact</label>
-                                            <input name="contact" type="int" class="form-control" required>
+                                            <input type="number" name="contact" class="form-control" required>
                                         </div>
 
                                         <?php
                                         $select = mysqli_query($connection, " SELECT * FROM tbl_event WHERE status=1");
                                         ?>
 
-                                        <div class="form-group">
+                                        <div class="col-md-6">
                                             <label>Event</label>
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
                                                     <label class="input-group-text" for="inputGroupSelect01">Choose event</label>
                                                 </div>
 
-                                                <select name="Event" id="Event" class="form-control">
+                                                <select name="Event" id="Event" class="form-select" required aria-label="select example">
+                                                    <option selected disabled value="">Select level of user</option>
                                                     <?php
                                                     while ($row = mysqli_fetch_array($select)) {
                                                     ?>
@@ -156,9 +158,11 @@ include('body/navbar.php');
                                     <div class="panel panel-primary">
                                         <div class="panel-heading">
                                             <hr>
-                                            RESERVATION INFORMATION
-                                        </div>
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1 text-center">
+                                        <legend style="color: black;">Reservation Information</legend>
                                         <hr>
+                                    </div>
+                                        </div>
 
                                         <?php
                                         $today = date("Y-m-d");
@@ -176,24 +180,23 @@ include('body/navbar.php');
 
                                         <hr>
                                         <div class="panel-body">
-                                            <div class="form-group">
+                                            <div class="col-md-6">
                                                 <label>Check-In</label>
-                                                <input name="checkin" type="date" class="form-control">
+                                                <input name="checkin" type="date" class="form-control" required>
                                             </div>
 
-
-                                            <div class="form-group">
+                                            <div class="col-md-6">
                                                 <label>Check-Out</label>
-                                                <input name="checkout" type="date" class="form-control">
+                                                <input name="checkout" type="date" class="form-control" required>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
+                        <hr>
                             <div class="container">
                                 <div class="col-md-16 col-sm-16">
-                                    <button type="submit" name="submit" class="btn btn-primary pull-right">Submit</button>
+                                    <button type="submit" name="submit" class="btn btn-primary float-right">Submit</button>
                                     </form>
                                 </div>
                             </div>
@@ -302,7 +305,7 @@ include('body/navbar.php');
                         <div class="card-header" style="background-color: #FEEAE6;">
                             <button class="btn btn-success" data-toggle="collapse" href="#collapse2">
                                 Booked <span class="badge"><?php echo $r; ?></span></button>
-                            <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Archive</a>
+                            <a class="btn btn-danger" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Archive</a>
                         </div>
                     </div>
 
@@ -391,8 +394,11 @@ include('body/navbar.php');
     <div class="modal fade" id="myEvent">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header" style="background-color: #FEEAE6;">
-                    <h4 style="color:black" class="modal-title"> <i class='fas fa-book' style='font-size:48px;color:black'>&nbsp;</i>Event</h4>
+            <div class="modal-header bg-dark">
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: white;"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <!-- Reservation -->
@@ -400,10 +406,10 @@ include('body/navbar.php');
                         <div class="col-md-12 col-sm-12">
                             <div class="panel panel-primary">
                                 <div class="panel-body">
-                                    <form name="form" action="code.php" method="POST" enctype="multipart/form-data">
+                                    <form name="form" action="code.php" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
                                         <div class="form-group">
-                                            <label>Event</label>
-                                            <input name="event" class="form-control" required>
+                                            <label for="validationCustom01" class="form-label">Event</label>
+                                            <input name="event" class="form-control" id="validationCustom01" required>
                                         </div>
                                         <div class="form-group">
                                             <label>Description</label>
@@ -432,6 +438,29 @@ include('body/navbar.php');
 </body>
 
 </html>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
 
 <?php
 include('body/script.php');

@@ -53,7 +53,7 @@ function getUsernameFromEmail($email)
 			$voice->speak($_SESSION['success']);
 		}
 		else {
-			$sql = "INSERT INTO tbl_covid19 (customer,email, address, timein, logdate, status) VALUES ('$customer','$email','$address ','$time', '$date', '0')";
+			$sql = "INSERT INTO tbl_covid19 (customer,email, address, timein, logdate, status, number) VALUES ('$customer','$email','$address ','$time', '$date', '0', '$number')";
 			if ($connection->query($sql) ===TRUE){
 				$voice->speak($message);
 				$_SESSION['success'] = 'SUCCESSFULLY ADDED';
@@ -68,7 +68,6 @@ function getUsernameFromEmail($email)
 		$_SESSION['error'] = 'QR Code is Invalid! Please try it again!';
 		$voice->speak($_SESSION['error']);
 	}
-
      }
 	 else
 	 {
@@ -76,8 +75,6 @@ function getUsernameFromEmail($email)
 		$voice->speak($_SESSION['error']);
 		$_SESSION['error'] = 'QR Code is Invalid! Please try it again';
 	 } 
-
 		header('location: ../index.php');
 	$connection->close();
-	
 	?>

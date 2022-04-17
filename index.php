@@ -88,6 +88,7 @@ include('body/navbar.php');
 								<td>NAME</td>
 								<td>ADDRESS</td>
 								<td>TEMP</td>
+								<td>NUMBER</td>
 								<td> IN</td>
 								<td> OUT</td>
 								<td>LOGDATE</td>
@@ -108,6 +109,7 @@ include('body/navbar.php');
 									<td><?php echo $row['customer']; ?></td>
 									<td><?php echo $row['address']; ?></td>
 									<td><?php echo $row['temperature']; ?></td>
+									<td><?php echo $row['number']; ?></td>
 									<td><?php echo $row['timein']; ?></td>
 									<td><?php echo $row['timeout']; ?></td>
 									<td><?php echo $row['logdate']; ?></td>

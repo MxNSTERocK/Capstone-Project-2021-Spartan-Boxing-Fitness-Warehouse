@@ -42,6 +42,9 @@ if (isset($_POST['contact_view'])) {
                 <label> Temperature: </label> &nbsp; <?php echo $row['temperature'];?> 
             </div>
             <div class="form-group">
+                <label> Contact number: </label> &nbsp; <?php echo $row['number'];?> 
+            </div>
+            <div class="form-group">
                 <label> Timein: </label> &nbsp; <?php echo $row['timein'];?> 
             </div>
             <div class="form-group">

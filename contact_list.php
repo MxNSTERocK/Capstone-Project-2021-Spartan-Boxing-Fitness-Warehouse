@@ -73,6 +73,7 @@ include('body/navbar.php');
 								<td>ID</td>
 								<td>CUSTOMER</td>
 								<td>TEMPERATURE</td>
+								<td>CONTACT</td>
 								<td>TIME IN</td>
 								<td>TIME OUT</td>
 								<td>STATUS</td>
@@ -92,6 +93,7 @@ include('body/navbar.php');
 									<td><?php echo $row['ID']; ?></td>
 									<td><?php echo $row['customer']; ?></td>
 									<td><?php echo $row['temperature']; ?></td>
+									<td><?php echo $row['number']; ?></td>
 									<td><?php echo $row['timein']; ?></td>
 									<td><?php echo $row['timeout']; ?></td>
 									<td><?php echo $row['status']; ?></td>

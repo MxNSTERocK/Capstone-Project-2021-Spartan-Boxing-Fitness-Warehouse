@@ -29,39 +29,45 @@ include('body/navbar.php');
 
 <body>
     <div class="modal fade" id="addmember" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <!-- <h5 class="modal-title" id="exampleModalLabel">Add New Member</h5>
+                <div class="modal-header bg-dark">
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: white;"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button> -->
+                    </button>
                 </div>
 
-                <form action="code.php" method="POST" enctype="multipart/form-data">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label> Firstname </label>
-                            <input type="text" name="firstname" class="form-control" placeholder="Enter your firstname" required>
+                <div class="panel-heading">
+                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1 text-center">
+                        <legend style="color: black;">Membership form</legend>
+                        <hr>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <form action="code.php" method="POST" enctype="multipart/form-data" class="row needs-validation" novalidate>
+                        <div class="col-md-6">
+                            <label for="validationCustom01" class="form-label"> Firstname </label>
+                            <input type="text" name="firstname" class="form-control" id="validationCustom01" placeholder="Enter your firstname" required>
                         </div>
-                        <div class="form-group">
+                        <div class="col-md-6">
                             <label>Lastname</label>
                             <input type="text" name="lastname" class="form-control checking_email" placeholder="Enter your lastname" required>
                         </div>
-                        <div class="form-group">
+                        <div class="col-md-6">
                             <label>Address</label>
                             <input type="text" name="address" class="form-control" placeholder="Enter your address" required>
                         </div>
-                        <div class="form-group">
+                        <div class="col-md-6">
                             <label>Contact</label>
                             <input type="number" name="contact" class="form-control" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" placeholder="Enter Contact number" required>
                         </div>
-                        <div class="form-group">
+                        <div class="col-md-6">
                             <label>Email</label>
                             <input type="email" name="emails" class="form-control" placeholder="Enter your valid Email address" required>
                             <small class="error_email" style="color: red;"></small>
                         </div>
-                        <div class="form-group">
+                        <div class="col-md-6">
                             <label>Membership join</label>
                             <input type="date" name="membership_start" class="form-control" required>
                         </div>
@@ -85,15 +91,14 @@ include('body/navbar.php');
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Note/Comment</label>
-                            <textarea type="text" name="note" class="form-control" cols="5" rows="5"></textarea>
+                            <label for="validationCustom01" class="form-label"> Note/Comment </label>
+                            <textarea type="text" name="note" class="form-control" id="validationCustom01" cols="2" rows="2" placeholder="Note/Comment" required></textarea>
                         </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        <button type="submit" name="register" class="btn btn-success">Save</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="submit" name="register" class="btn btn-success">Save</button>
+                </div>
                 </form>
 
             </div>
@@ -135,24 +140,24 @@ include('body/navbar.php');
                             <tbody>
                                 <?php
                                 if (mysqli_num_rows($query_run) > 0) {
-                                    while ($row = mysqli_fetch_assoc($query_run)) { 
+                                    while ($row = mysqli_fetch_assoc($query_run)) {
 
                                         date_default_timezone_set('Asia/manila');
-                                        $today = date("Y-m-d"); ?>   
+                                        $today = date("Y-m-d"); ?>
 
                                         <tr>
                                             <td><?php echo $row['firstname'] . ' ' . $row['lastname']; ?> </td>
                                             <td><?php echo $row['emails']; ?></td>
-                                            
-                                                <?php
-                                                if ($row['membership_end'] > $today) {
+
+                                            <?php
+                                            if ($row['membership_end'] > $today) {
                                                 //    echo '<p><i class="fa fa-circle text-success"></i><a href="active.php?ID=' . $row['ID'] . '&status=0">Active</a></p>';
-                                                   echo "<td style='background-color: #00FF00;'>" . $row['membership_end'] . "</td>";
-                                                } else {
-                                                    echo "<td style='background-color: red;'>" . $row['membership_end'] . "</td>";
-                                                }
-                                                ?>
-                                            
+                                                echo "<td style='background-color: #00FF00;'>" . $row['membership_end'] . "</td>";
+                                            } else {
+                                                echo "<td style='background-color: red;'>" . $row['membership_end'] . "</td>";
+                                            }
+                                            ?>
+
                                             <td><?php echo $row['type']; ?></td>
                                             <td><?php echo $row['address']; ?></td>
                                             <td><?php echo $row['membership_end']; ?></td>
@@ -193,6 +198,29 @@ include('body/navbar.php');
 </body>
 
 </html>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
 
 <script>
     $(document).ready(function() {

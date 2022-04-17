@@ -9,7 +9,6 @@
 session_start();
 $error = array();
 
-
 require "mail.php";
 
 if (!$con = mysqli_connect("localhost", "root", "", "gym")) {
@@ -100,7 +99,7 @@ function send_email($email)
 	mysqli_query($con, $query);
 
 	//send email here
-	send_mail($email, 'You Requested to reset your password in SPARTAN BOXING AND FITNESS WAREHOUSE', "Your code is " . $code);
+	send_mail($email, 'You Requested to reset your password in SPARTAN BOXING AND FITNESS WAREHOUSE', "Your code is " . $code .' <b>Please do not share your code with anyone!</b>');
 }
 
 function save_password($password)
@@ -198,59 +197,59 @@ function is_code_correct($code)
 		z-index: -1;
 	}
 
-	    /* Style all input fields */
-    input {
-        /* width: 100%; */
-        padding: 12px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-        margin-top: 6px;
-        margin-bottom: 16px;
-    }
+	/* Style all input fields */
+	input {
+		/* width: 100%; */
+		padding: 12px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		box-sizing: border-box;
+		margin-top: 6px;
+		margin-bottom: 16px;
+	}
 
-    /* Style the submit button */
-    input[type=submit] {
-        background-color: #04AA6D;
-        color: white;
-    }
+	/* Style the submit button */
+	input[type=submit] {
+		background-color: #04AA6D;
+		color: white;
+	}
 
-    /* The message box is shown when the user clicks on the password field */
-    #message {
-        display: none;
-        background: #f1f1f1;
-        color: #000;
-        position: relative;
-        padding: 10px;
-        margin-top: 5px;
-    }
+	/* The message box is shown when the user clicks on the password field */
+	#message {
+		display: none;
+		background: #f1f1f1;
+		color: #000;
+		position: relative;
+		padding: 10px;
+		margin-top: 5px;
+	}
 
-    #message p {
-        padding: 5px 15px;
-        font-size: 10px;
-    }
+	#message p {
+		padding: 5px 15px;
+		font-size: 10px;
+	}
 
-    /* Add a green text color and a checkmark when the requirements are right */
-    .valid {
-        color: green;
-    }
+	/* Add a green text color and a checkmark when the requirements are right */
+	.valid {
+		color: green;
+	}
 
-    .valid:before {
-        position: relative;
-        left: -15px;
-        content: "✓";
-    }
+	.valid:before {
+		position: relative;
+		left: -15px;
+		content: "✓";
+	}
 
-    /* Add a red text color and an "x" when the requirements are wrong */
-    .invalid {
-        color: red;
-    }
+	/* Add a red text color and an "x" when the requirements are wrong */
+	.invalid {
+		color: red;
+	}
 
-    .invalid:before {
-        position: relative;
-        left: -15px;
-        content: "x";
-    }
+	.invalid:before {
+		position: relative;
+		left: -15px;
+		content: "x";
+	}
 </style>
 
 <body>
@@ -273,22 +272,22 @@ function is_code_correct($code)
 
 									<form method="post" action="forgot.php?mode=enter_email">
 										<h3>Enter your Email</h3>
-										<span style="font-size: 12px;color:blue;">
-											<div class='alert alert-danger' style='background:#389ced;color:#fff'>
-												<h5>
-													<?php
-													foreach ($error as $err) {
-														echo $err . "<br>";
-													}
-													?></i></h5>
-											</div>
-										</span>
+										<hr>
+										<h5>
+											<?php
+											foreach ($error as $err) {
+												echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+												<strong> $err</strong>
+											  </div>";
+											}
+											?></i></h5>
 										<div class="container">
+											<label>Email address</label>
 											<input class="form-control form-control-user" type="email" name="email" placeholder="Enter Valid Email"><br>
 										</div>
 										<br style="clear: both;">
 										<div class="container">
-										<input type="submit" value="Next" class="form-control form-control-user btn-user btn-block">
+											<input type="submit" value="Next" class="form-control form-control-user btn-user btn-block btn">
 										</div>
 										<br><br>
 									</form>
@@ -317,19 +316,16 @@ function is_code_correct($code)
 										<form method="post" action="forgot.php?mode=enter_code">
 											<h3>Enter your code sent to your email</h3>
 											<hr>
-											<br>
-											<span style="font-size: 12px;color:blue;">
-												<div class='alert alert-danger' style='background:#389ced;color:#fff'>
-													<h5>
-														<?php
-														foreach ($error as $err) {
-															echo $err . "<br>";
-														}
-														?></i></h5>
-												</div>
-											</span>
-
+											<h5>
+												<?php
+												foreach ($error as $err) {
+													echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+												<strong> $err</strong>
+											  </div>";
+												}
+												?></i></h5>
 											<div class="container">
+												<label>Verification code</label>
 												<input class="form-control form-control-user" type="text" name="code" placeholder="Enter your code"><br>
 											</div>
 											<br style="clear: both;">
@@ -367,18 +363,18 @@ function is_code_correct($code)
 									<div class="row bg-light">
 										<form method="post" action="forgot.php?mode=enter_password">
 											<h3>Enter your new password</h3>
-											<span style="font-size: 12px;color:blue;">
-												<div class='alert alert-danger' style='background:#389ced;color:#fff'>
-													<h5>
-														<?php
-														foreach ($error as $err) {
-															echo $err . "<br>";
-														}
-														?></i></h5>
-												</div>
-											</span>
+											<hr>
+											<h5>
+												<?php
+												foreach ($error as $err) {
+													echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+												<strong> $err</strong>
+											  </div>";
+												}
+												?></i></h5>
 											<div class="container">
-												<input class="form-control form-control-user" type="password" id="psw" name="password" placeholder="Password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" required><br>
+												<label>Enter new password</label>
+												<input type="password" id="psw" name="password" class="form-control" placeholder="Enter Password" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$" required>
 												<!-- check in modal -->
 												<div id="message">
 													<h6>No space allowed</h6>
@@ -387,7 +383,7 @@ function is_code_correct($code)
 													<p id="number" class="invalid">A <b>number</b></p>
 													<p id="length" class="invalid">Minimum <b>8 characters</b></p>
 												</div>
-
+												<label>Enter confirm password</label>
 												<input class="form-control form-control-user" type="password" name="password2" placeholder="Retype Password" required><br>
 											</div>
 											<br style="clear: both;">
@@ -419,64 +415,87 @@ function is_code_correct($code)
 </html>
 
 <script>
-        var myInput = document.getElementById("psw");
-        var letter = document.getElementById("letter");
-        var capital = document.getElementById("capital");
-        var number = document.getElementById("number");
-        var length = document.getElementById("length");
+	// Example starter JavaScript for disabling form submissions if there are invalid fields
+	(function() {
+		'use strict'
 
-        // When the user clicks on the password field, show the message box
-        myInput.onfocus = function() {
-            document.getElementById("message").style.display = "block";
-        }
+		// Fetch all the forms we want to apply custom Bootstrap validation styles to
+		var forms = document.querySelectorAll('.needs-validation')
 
-        // When the user clicks outside of the password field, hide the message box
-        myInput.onblur = function() {
-            document.getElementById("message").style.display = "none";
-        }
+		// Loop over them and prevent submission
+		Array.prototype.slice.call(forms)
+			.forEach(function(form) {
+				form.addEventListener('submit', function(event) {
+					if (!form.checkValidity()) {
+						event.preventDefault()
+						event.stopPropagation()
+					}
 
-        // When the user starts to type something inside the password field
-        myInput.onkeyup = function() {
-            // Validate lowercase letters
-            var lowerCaseLetters = /[a-z]/g;
-            if (myInput.value.match(lowerCaseLetters)) {
-                letter.classList.remove("invalid");
-                letter.classList.add("valid");
-            } else {
-                letter.classList.remove("valid");
-                letter.classList.add("invalid");
-            }
+					form.classList.add('was-validated')
+				}, false)
+			})
+	})()
+</script>
 
-            // Validate capital letters
-            var upperCaseLetters = /[A-Z]/g;
-            if (myInput.value.match(upperCaseLetters)) {
-                capital.classList.remove("invalid");
-                capital.classList.add("valid");
-            } else {
-                capital.classList.remove("valid");
-                capital.classList.add("invalid");
-            }
+<script>
+	var myInput = document.getElementById("psw");
+	var letter = document.getElementById("letter");
+	var capital = document.getElementById("capital");
+	var number = document.getElementById("number");
+	var length = document.getElementById("length");
 
-            // Validate numbers
-            var numbers = /[0-9]/g;
-            if (myInput.value.match(numbers)) {
-                number.classList.remove("invalid");
-                number.classList.add("valid");
-            } else {
-                number.classList.remove("valid");
-                number.classList.add("invalid");
-            }
+	// When the user clicks on the password field, show the message box
+	myInput.onfocus = function() {
+		document.getElementById("message").style.display = "block";
+	}
 
-            // Validate length
-            if (myInput.value.length >= 8) {
-                length.classList.remove("invalid");
-                length.classList.add("valid");
-            } else {
-                length.classList.remove("valid");
-                length.classList.add("invalid");
-            }
-        }
-    </script>
+	// When the user clicks outside of the password field, hide the message box
+	myInput.onblur = function() {
+		document.getElementById("message").style.display = "none";
+	}
+
+	// When the user starts to type something inside the password field
+	myInput.onkeyup = function() {
+		// Validate lowercase letters
+		var lowerCaseLetters = /[a-z]/g;
+		if (myInput.value.match(lowerCaseLetters)) {
+			letter.classList.remove("invalid");
+			letter.classList.add("valid");
+		} else {
+			letter.classList.remove("valid");
+			letter.classList.add("invalid");
+		}
+
+		// Validate capital letters
+		var upperCaseLetters = /[A-Z]/g;
+		if (myInput.value.match(upperCaseLetters)) {
+			capital.classList.remove("invalid");
+			capital.classList.add("valid");
+		} else {
+			capital.classList.remove("valid");
+			capital.classList.add("invalid");
+		}
+
+		// Validate numbers
+		var numbers = /[0-9]/g;
+		if (myInput.value.match(numbers)) {
+			number.classList.remove("invalid");
+			number.classList.add("valid");
+		} else {
+			number.classList.remove("valid");
+			number.classList.add("invalid");
+		}
+
+		// Validate length
+		if (myInput.value.length >= 8) {
+			length.classList.remove("invalid");
+			length.classList.add("valid");
+		} else {
+			length.classList.remove("valid");
+			length.classList.add("invalid");
+		}
+	}
+</script>
 
 
 <?php

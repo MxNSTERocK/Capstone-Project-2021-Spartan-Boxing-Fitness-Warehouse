@@ -7,7 +7,7 @@ include('body/navbar.php');
 
 <link href="css/googleapis.css" rel="stylesheet" />
 <link href="css/mdb.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <link rel="stylesheet" href="css/datatable.css">
 
@@ -16,7 +16,7 @@ include('body/navbar.php');
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
-    <?php 
+    <?php
     // echo '<pre>';
     // var_dump($_SESSION);
     // echo '</pre>';
@@ -168,7 +168,7 @@ include('body/navbar.php');
 
     <div class="row">
         <!-- Pie Chart -->
-        <div class="col-xl-12 col-lg-12">
+        <div class="col-xl-6 col-lg-6">
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -261,22 +261,113 @@ include('body/navbar.php');
                 </div>
 
                 <div class="card-body">
-               
-                        <div class="mt-2 text-center small">
-                            <span class="mr-2">
-                                <i class="fas fa-circle text-success"></i> Available
-                            </span>
-                            <span class="mr-2">
-                                <i class="fas fa-circle text-danger"></i> Unavailable
-                            </span>
-                        </div>
-             
+
+                    <div class="mt-2 text-center small">
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-success"></i> Available
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-danger"></i> Unavailable
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie -->
+        <?php
+        $query = "SELECT type, count(*) as number FROM tbl_membership GROUP BY type";
+        $result = mysqli_query($connection, $query);
+        ?>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', {
+                'packages': ['corechart']
+            });
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['type', 'Number'],
+                    <?php
+                    while ($row = mysqli_fetch_array($result)) {
+                        echo "['" . $row["type"] . "', " . $row["number"] . "],";
+                    }
+                    ?>
+                ]);
+                var options = {
+                    // title: 'Percentage of Male and Female Employee',
+                    is3D: true,
+                    pieHole: 0.4
+                };
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                chart.draw(data, options);
+            }
+        </script>
+
+        <!-- Pie chart -->
+        <div class="col-xl-6 col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Membership type</h6>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div> -->
+                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="container">
+                    <div id="piechart" style="width: 500px; height: 347px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-12 col-lg-7">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Temperature monitoring</h6>
+                <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-header">Go to:</div>
+                        <a class="dropdown-item" href="contact_list.php">Action</a>
+                        <!-- <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a> -->
+                    </div>
+                </div>
+            </div>
+            <?php
+                $sql = "SELECT * FROM tbl_covid19   ";
+                $result = mysqli_query($connection, $sql);
+                $chart_data = "";
+                while ($row = mysqli_fetch_array($result)) {
+
+                    $productname[]  = $row['customer'];
+                    $sales[] = $row['temperature'];
+                }
+            ?>
+            <div class="card-body">
+                <div class="chart-area">
+                    <div style="width:60%; height:20%;text-align:center">
+                        <canvas id="chartjs_bar"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 <script>
     $(document).ready(function() {
@@ -287,6 +378,44 @@ include('body/navbar.php');
 <script src="material/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="material/jquery-easing/jquery.easing.min.js"></script>
 <script src="js/material-dashboard.js"></script>
+
+<!-- <script src="//code.jquery.com/jquery-1.9.1.js"></script> -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script type="text/javascript">
+    var ctx = document.getElementById("chartjs_bar").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: <?php echo json_encode($productname); ?>,
+            datasets: [{
+                backgroundColor: [
+                    "#5969ff",
+                    "#ff407b",
+                    "#25d5f2",
+                    "#ffc750",
+                    "#2ec551",
+                    "#7040fa",
+                    "#ff004e"
+                ],
+                data: <?php echo json_encode($sales); ?>,
+            }]
+        },
+        options: {
+            legend: {
+                display: true,
+                position: 'bottom',
+
+                labels: {
+                    fontColor: '#71748d',
+                    fontFamily: 'Circular Std Book',
+                    fontSize: 14,
+                }
+            },
+
+
+        }
+    });
+</script>
 
 <?php
 include('body/footer.php');
