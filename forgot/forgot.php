@@ -1,10 +1,3 @@
-<link rel="stylesheet" href="../css/material-dashboard.css">
-<link rel="stylesheet" href="../css/design.css">
-
-<link href="../css/forgot.css" rel="stylesheet">
-<link href="../css/googleapis.css" rel="stylesheet" />
-<link href="../css/mdb.css" rel="stylesheet" />
-
 <?php
 session_start();
 $error = array();
@@ -99,7 +92,7 @@ function send_email($email)
 	mysqli_query($con, $query);
 
 	//send email here
-	send_mail($email, 'You Requested to reset your password in SPARTAN BOXING AND FITNESS WAREHOUSE', "Your code is " . $code .' <b>Please do not share your code with anyone!</b>');
+	send_mail($email, 'You Requested to reset your password in SPARTAN BOXING AND FITNESS WAREHOUSE', "Your code is " . $code . ' <b>Please do not share your code with anyone!</b>');
 }
 
 function save_password($password)
@@ -170,6 +163,13 @@ function is_code_correct($code)
 
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../css/material-dashboard.css">
+	<link rel="stylesheet" href="../css/design.css">
+
+	<link href="../css/forgot.css" rel="stylesheet">
+	<link href="../css/googleapis.css" rel="stylesheet" />
+	<link href="../css/mdb.css" rel="stylesheet" />
 	<title>Forgot</title>
 </head>
 
@@ -268,11 +268,12 @@ function is_code_correct($code)
 					<div class="row justify-content-center">
 						<div class="col-xl-6 col-lg-6 col-md-6">
 							<div class="card o-hidden border-1 shadow-lg my-5">
+								<div class="modal-header bg-dark">
+									<h5 class="modal-title" id="exampleModalLabel" style="color: white;">Enter your Email</h5>
+										<span aria-hidden="true">&times;</span>
+								</div>
 								<div class="row bg-light">
-
 									<form method="post" action="forgot.php?mode=enter_email">
-										<h3>Enter your Email</h3>
-										<hr>
 										<h5>
 											<?php
 											foreach ($error as $err) {
@@ -311,11 +312,13 @@ function is_code_correct($code)
 						<div class="row justify-content-center">
 							<div class="col-xl-6 col-lg-6 col-md-6">
 								<div class="card o-hidden border-1 shadow-lg my-5">
+									<div class="modal-header bg-dark">
+										<h5 class="modal-title" id="exampleModalLabel" style="color: white;">Enter your code sent to your email</h5>
+											<span aria-hidden="true">&times;</span>
+									</div>
 									<div class="row bg-light">
 
 										<form method="post" action="forgot.php?mode=enter_code">
-											<h3>Enter your code sent to your email</h3>
-											<hr>
 											<h5>
 												<?php
 												foreach ($error as $err) {
@@ -359,11 +362,15 @@ function is_code_correct($code)
 						<!-- Outer Row -->
 						<div class="row justify-content-center">
 							<div class="col-xl-6 col-lg-6 col-md-6">
+
 								<div class="card o-hidden border-1 shadow-lg my-5">
+									<div class="modal-header bg-dark">
+										<h5 class="modal-title" id="exampleModalLabel" style="color: white;">Enter your new password</h5>
+											<span aria-hidden="true">&times;</span>
+									</div>
 									<div class="row bg-light">
 										<form method="post" action="forgot.php?mode=enter_password">
-											<h3>Enter your new password</h3>
-											<hr>
+											<h3></h3>
 											<h5>
 												<?php
 												foreach ($error as $err) {
@@ -375,6 +382,9 @@ function is_code_correct($code)
 											<div class="container">
 												<label>Enter new password</label>
 												<input type="password" id="psw" name="password" class="form-control" placeholder="Enter Password" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$" required>
+												<input type="checkbox" onclick="myFunction()"> &nbsp; <label for="">Show Password</label> <br>
+
+
 												<!-- check in modal -->
 												<div id="message">
 													<h6>No space allowed</h6>
@@ -408,7 +418,6 @@ function is_code_correct($code)
 	}
 
 		?>
-
 
 </body>
 
@@ -493,6 +502,17 @@ function is_code_correct($code)
 		} else {
 			length.classList.remove("valid");
 			length.classList.add("invalid");
+		}
+	}
+</script>
+
+<script>
+	function myFunction() {
+		var x = document.getElementById("psw");
+		if (x.type === "password") {
+			x.type = "text";
+		} else {
+			x.type = "password";
 		}
 	}
 </script>

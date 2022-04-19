@@ -1,5 +1,6 @@
 <?php
 session_start();
+include('body/header.php');
 ?>
 
 <!DOCTYPE html>
@@ -8,11 +9,13 @@ session_start();
 <head>
     <title> Registration </title>
     <link href="css/googleapis.css" rel="stylesheet" />
-    <!-- <link href="css/mdb.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/material-dashboard.css"> -->
+    <link href="css/mdb.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/material-dashboard.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
+
+
 </head>
 
 <style>
@@ -164,7 +167,7 @@ session_start();
                                         <div class="col-md-6">
                                             <label>Image</label>
                                             <input type="file" name="image" class="form-control" aria-label="file example" required>
-                                            <div class="invalid-feedback">Choose profile picture</div>
+                                            <!-- <div class="invalid-feedback">Choose profile picture</div> -->
                                         </div>
 
                                         <div class="col-md-6">
@@ -184,9 +187,6 @@ session_start();
                                     </form>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="far fa-user fa-2x text-gray-1000"></i>
                         </div>
                     </div>
                 </div>

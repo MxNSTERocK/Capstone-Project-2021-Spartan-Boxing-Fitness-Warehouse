@@ -11,6 +11,14 @@ include('body/navbar.php');
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable();
+    });
+</script>
+
+
+
 <style>
     .alert {
         /* display: inline-block; */
@@ -28,10 +36,10 @@ include('body/navbar.php');
     <div class="card-body">
         <div class="container">
             <!-- <div class="col-xl-13 col-md-13 mb-13"> -->
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-header py-3" style="background-color: #FEEAE6;">
+            <div class="card border shadow h-100 py-0">
+                <div class="card-header py-3 bg-dark">
                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                        <i class="fas fa-list-ul fa-2x text-gray-1000" data-toggle="modal" data-target="#myEvent" data-toggle="tooltip" data-placement="top" title="Add Event"></i> &nbsp; List of Event
+                        <i class="fas fa-list-ul fa-2x text-gray-1000" data-toggle="modal" data-target="#myEvent" data-toggle="tooltip" data-placement="top" title="Add Event" style="color: white"></i>
                     </div>
                 </div>
                 <div class="h5 mb-0 font-weight-bold text-gray-800">
@@ -105,7 +113,7 @@ include('body/navbar.php');
                                         <hr>
                                     </div>
                                 </div>
-                         
+
                                 <div class="panel-body">
                                     <form name="form" action="code.php" method="POST" class="needs-validation g-3" novalidate>
                                         <div class="col-md-6">
@@ -159,9 +167,9 @@ include('body/navbar.php');
                                         <div class="panel-heading">
                                             <hr>
                                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1 text-center">
-                                        <legend style="color: black;">Reservation Information</legend>
-                                        <hr>
-                                    </div>
+                                                <legend style="color: black;">Reservation Information</legend>
+                                                <hr>
+                                            </div>
                                         </div>
 
                                         <?php
@@ -193,7 +201,7 @@ include('body/navbar.php');
                                     </div>
                                 </div>
                             </div>
-                        <hr>
+                            <hr>
                             <div class="container">
                                 <div class="col-md-16 col-sm-16">
                                     <button type="submit" name="submit" class="btn btn-primary float-right">Submit</button>
@@ -226,8 +234,10 @@ include('body/navbar.php');
 
         <div class="card-body">
             <!-- Modal -->
-            <div class="card border-left-primary shadow h-200 py-2">
-                <h4 class="m-2 font-weight-bold text-primary">Reservation</h4>
+            <div class="card border shadow h-200 py-0">
+                <div class="modal-header bg-dark">
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: white;">Reservation</h5>
+                </div>
                 <div id="accordion">
                     <div class="card">
                         <div class="card-header" style="background-color: #FEEAE6;">
@@ -322,16 +332,13 @@ include('body/navbar.php');
 
                                     echo "<div class='col-md-3 col-xs-3'>
                                     				<div class='panel panel-primary text-center no-boder bg-color-blue'>
-                                    					<div class='panel-body'>
                                     						<i class='fa fa-users fa-2x'></i>
-                                    						<h3>" . $mrow['lastname'] . "</h3>
-                                    					</div>
-                                    					<div class='panel-footer back-footer-blue'><br>
-                                    					<a href=show.php?sid=" . $fid . "><button  class='btn btn-success btn' data-toggle='modal' data-target='#myModal'>
-                                    				Show
-                                    				</button></a> <br>
-                                    						" . $mrow['checkin'] . "
-                                    					</div>
+                                    						<small>" . $mrow['lastname'] . "</small>
+                                                        <hr>
+                                    					<a href=show.php?sid=" . $fid . ">
+                                                        <i class='fas fa-eye data-toggle='modal' data-target='#myModal'></i>
+                                    				 <br></a>
+                                    						<small>" . $mrow['checkin'] . "</small>
                                     				</div>	
                                     		</div>";
                                 }
@@ -345,41 +352,51 @@ include('body/navbar.php');
                 <div class="row">
                     <div class="col">
                         <div class="collapse multi-collapse" id="multiCollapseExample1">
-                            <div class="card card-body">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Contact</th>
-                                            <th>Event</th>
-                                            <th>Checkin</th>
-                                            <th>Checkout</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Contact</th>
+                                                <th>Event</th>
+                                                <th>Checkin</th>
+                                                <th>Checkout</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-                                        <?php
-                                        $query = 'SELECT * FROM tbl_decline';
-                                        $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+                                            <?php
+                                            $query = 'SELECT * FROM tbl_decline';
+                                            $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 
-                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            while ($row = mysqli_fetch_assoc($result)) {
 
-                                            echo '<tr>';
-                                            echo '<td>' . $row['firstname'] . ' ' . $row['lastname'] . '</td>';
-                                            echo '<td>' . $row['mail'] . '</td>';
-                                            echo '<td>' . $row['contact'] . '</td>';
-                                            echo '<td>' . $row['Event'] . '</td>';
-                                            echo '<td>' . $row['checkin'] . '</td>';
-                                            echo '<td>' . $row['checkout'] . '</td>';
-                                            echo '</tr> ';
-                                        }
-                                        ?>
+                                                echo '<tr>';
+                                                echo '<td>' . $row['firstname'] . ' ' . $row['lastname'] . '</td>';
+                                                echo '<td>' . $row['mail'] . '</td>';
+                                                echo '<td>' . $row['contact'] . '</td>';
+                                                echo '<td>' . $row['Event'] . '</td>';
+                                                echo '<td>' . $row['checkin'] . '</td>';
+                                                echo '<td>' . $row['checkout'] . '</td>';
+                                                echo '</tr> ';
+                                            }
+                                            ?>
 
-                                    </tbody>
-                                </table>
-
-
+                                        </tbody>
+                                    </table>
+                                    <!-- pagination -->
+                                    <nav aria-label="Page navigation example" style="float: right">
+                                        <ul class="pagination">
+                                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -387,15 +404,14 @@ include('body/navbar.php');
             </div>
         </div>
     </div>
-
-
+    </div>
 
     <!-- Add Event -->
     <div class="modal fade" id="myEvent">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-            <div class="modal-header bg-dark">
-                    <h5 class="modal-title" id="exampleModalLabel" style="color: white;"></h5>
+                <div class="modal-header bg-dark">
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: white;">Add event</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

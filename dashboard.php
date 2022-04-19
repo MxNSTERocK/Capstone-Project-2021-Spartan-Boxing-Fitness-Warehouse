@@ -7,7 +7,6 @@ include('body/navbar.php');
 
 <link href="css/googleapis.css" rel="stylesheet" />
 <link href="css/mdb.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <link rel="stylesheet" href="css/datatable.css">
 
@@ -349,7 +348,8 @@ include('body/navbar.php');
                 </div>
             </div>
             <?php
-                $sql = "SELECT * FROM tbl_covid19   ";
+                $date = date('Y-m-d');
+                $sql = "SELECT * FROM tbl_covid19 WHERE DATE(LOGDATE)=CURDATE()";
                 $result = mysqli_query($connection, $sql);
                 $chart_data = "";
                 while ($row = mysqli_fetch_array($result)) {

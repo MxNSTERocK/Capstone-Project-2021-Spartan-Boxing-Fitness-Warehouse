@@ -159,24 +159,7 @@
             </li> -->
 
                     <!-- Nav Item - Alerts -->
-                <li class="nav-item dropdown no-arrow mx-1">
-                    <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black;">
-                        <?php
-                        $firstname = $_SESSION['ID'];
-                        // echo $email;
-                        $query = "SELECT * FROM tbl_customer WHERE email = '$firstname' ";
-                        $result = mysqli_query($connection, $query);
 
-                        while ($row = mysqli_fetch_array($result)) {
-
-                            // echo $row['role'];
-                        ?>
-
-                        <?php
-                        }
-                        ?>
-                    </a>
-                </li>
 
 
                 <!-- Nav Item - Messages -->

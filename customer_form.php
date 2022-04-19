@@ -62,7 +62,7 @@ include('body_customer/cnavbar.php');
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                    <legend style="color: black;">Personal Information</legend>
+                                                    <legend style="color: black;">Reservation Information</legend>
                                                     <hr>
                                                 </div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">

@@ -33,7 +33,7 @@ while($row = mysqli_fetch_array($result)){
     $TIMEOUT =$row['timeout'];
     $LOGDATE =$row['logdate'];
 
-    $array = array($ID,$CUSTOMER,$EMAIL,$TEMPERATURE,$TIMEIN,$TIMEOUT,$LOGDATE);
+    $array = array($ID,$CUSTOMER,$EMAIL,$NUMBER,$TEMPERATURE,$TIMEIN,$TIMEOUT,$LOGDATE);
     fputcsv($file,$array);
 }
 fclose($file);

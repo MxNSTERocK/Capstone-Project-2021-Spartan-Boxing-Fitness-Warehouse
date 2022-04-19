@@ -10,8 +10,8 @@ include('body/navbar.php');
 
 <div class="container-fluid">
     <div class="card shadow mb-4">
-        <div class="card-header py-3" style="background-color: #faf1f0;">
-            <h6 class="m-0 font-weight-bold text-primary">Update Event</h6>
+    <div class="modal-header bg-dark">
+            <h5 class="modal-title" id="exampleModalLabel" style="color: white;">Update Event</h5>
         </div>
         <div class="card-body">
 

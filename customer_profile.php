@@ -6,7 +6,7 @@ include('body_customer/cnavbar.php');
 ?>
 
 <?php
-$firstname = $_SESSION['firstname'];
+$firstname = $_SESSION['ID'];
 
 $query = "SELECT * FROM tbl_admin WHERE email = '$firstname' ";
 

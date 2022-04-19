@@ -15,12 +15,13 @@ include('body/navbar.php');
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- DataTables -->
+	<link href="css/googleapis.css" rel="stylesheet" />
+	<link href="css/mdb.css" rel="stylesheet" />
+
 	<link rel="stylesheet" href="css/datatable.css">
 
 	<script src="material/jquery/jquery.min.js"></script>
 	<script src="material/datatables/jquery.dataTables.min.js"></script>
-	<link href="css/googleapis.css" rel="stylesheet" />
-	<link href="css/mdb.css" rel="stylesheet" />
 
 	<script>
 		$(document).ready(function() {
@@ -37,7 +38,7 @@ include('body/navbar.php');
 
 <body style="background:#eee">
 	<div class="container">
-	<h4 class="m-2 font-weight-bold text-primary">Contact List</h4>
+		<h4 class="m-2 font-weight-bold text-primary"></h4>
 		<div class="row">
 			<div class="col-md-12">
 				<?php
@@ -60,49 +61,61 @@ include('body/navbar.php');
 					unset($_SESSION['success']);
 				}
 				?>
-				<button type="submit" class="btn btn-success" style="float: right;" onclick="Export()">
-					<i class="glyphicon glyphicon-save">&nbsp;</i>Export to Excel </button></p>
 			</div>
+			&nbsp;
+
 
 			<div class="col-md-12">
+				<div class="card-header py-2 bg-dark">
+					<h4 class="m-2 font-weight-bold text-white">
+						<button type="submit" class="btn btn-success" style="float: right;" onclick="Export()">
+							<i class="glyphicon glyphicon-save">&nbsp;</i>Export to Excel </button>
+						
+						Contact List
+					</h4>
+
+
+				</div>
 				<div style="border-radius: 5px;padding:10px;background:#fff;" id="divvideo">
 					<br>
-					<table id="dataTable" class="table table-bordered">
-						<thead>
-							<tr style="background-color: #faf1f0;">
-								<td>ID</td>
-								<td>CUSTOMER</td>
-								<td>TEMPERATURE</td>
-								<td>CONTACT</td>
-								<td>TIME IN</td>
-								<td>TIME OUT</td>
-								<td>STATUS</td>
-							</tr>
-						</thead>
-						<tbody>
-							<?php
-							$date = date('Y-m-d');
-							if ($connection->connect_error) {
-								die("Connection failed" . $connection->connect_error);
-							}
-							$sql = "SELECT * FROM tbl_covid19";
-							$query = $connection->query($sql);
-							while ($row = $query->fetch_assoc()) {
-							?>
-								<tr>
-									<td><?php echo $row['ID']; ?></td>
-									<td><?php echo $row['customer']; ?></td>
-									<td><?php echo $row['temperature']; ?></td>
-									<td><?php echo $row['number']; ?></td>
-									<td><?php echo $row['timein']; ?></td>
-									<td><?php echo $row['timeout']; ?></td>
-									<td><?php echo $row['status']; ?></td>
+					<div class="table-responsive">
+						<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+							<thead>
+								<tr style="background-color: #faf1f0;">
+									<td>ID</td>
+									<td>CUSTOMER</td>
+									<td>TEMPERATURE</td>
+									<td>CONTACT</td>
+									<td>TIME IN</td>
+									<td>TIME OUT</td>
+									<td>STATUS</td>
 								</tr>
-							<?php
-							}
-							?>
-						</tbody>
-					</table>
+							</thead>
+							<tbody>
+								<?php
+								$date = date('Y-m-d');
+								if ($connection->connect_error) {
+									die("Connection failed" . $connection->connect_error);
+								}
+								$sql = "SELECT * FROM tbl_covid19";
+								$query = $connection->query($sql);
+								while ($row = $query->fetch_assoc()) {
+								?>
+									<tr>
+										<td><?php echo $row['ID']; ?></td>
+										<td><?php echo $row['customer']; ?></td>
+										<td><?php echo $row['temperature']; ?></td>
+										<td><?php echo $row['number']; ?></td>
+										<td><?php echo $row['timein']; ?></td>
+										<td><?php echo $row['timeout']; ?></td>
+										<td><?php echo $row['status']; ?></td>
+									</tr>
+								<?php
+								}
+								?>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -111,7 +124,7 @@ include('body/navbar.php');
 
 	<script>
 		function Export() {
-			var conf = confirm("Please confirm if you wish to proceed in exporting the attendance in to Excel File");
+			var conf = confirm("Please confirm if you wish to proceed in exporting the contact tracing to Excel File");
 			if (conf == true) {
 				window.open("covid19/export.php", '_blank');
 			}

@@ -13,10 +13,13 @@ $result2 = mysqli_query($connection, $query2) or die(mysqli_error($connection));
 
 <div class="container">
   <div class="card shadow mb-4">
+    <div class="card-header py-2 bg-dark">
+      <h4 class="m-2 font-weight-bold text-light">Inventory for :
+        <?php while ($row = mysqli_fetch_assoc($result2)) {
+          echo $row['equipment'];
+        } ?></h4>
+    </div>
     <div class="card-header py-3">
-      <h4 class="m-2 font-weight-bold text-primary">Inventory for : <?php while ($row = mysqli_fetch_assoc($result2)) {
-                                                                      echo $row['equipment'];
-                                                                    } ?></h4>
     </div>
     <div class="card-body">
       <div class="table-responsive">

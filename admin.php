@@ -80,7 +80,7 @@ include('body/navbar.php');
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-dark">
-                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <h5 class="modal-title" id="exampleModalLabel" style="color: white;">Add Administrator</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -88,74 +88,74 @@ include('body/navbar.php');
             <form action="code.php" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
 
                 <div class="modal-body">
-                <div class="row">
-                <div class="col-md-6">
-                        <label for="validationCustom01" class="form-label"> Username </label>
-                        <input type="text" name="username" class="form-control" id="validationCustom01" class="form-control" placeholder="Enter Username" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label> Firstname </label>
-                        <input type="text" name="firstname" class="form-control" placeholder="Enter Username" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label> Lastname </label>
-                        <input type="text" name="lastname" class="form-control" placeholder="Enter Username" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label> Contact number </label>
-                        <input type="text" name="contact" class="form-control" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" placeholder="Enter Username" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label>Email</label>
-                        <input type="email" name="email" class="form-control checking_email" placeholder="Enter Email" required>
-                        <small class="error_email" style="color: red;"></small>
-                    </div>
-                    <div class="col-md-6">
-                    <label for="validationServer04" class="form-label">Level</label>
-                    <select class="form-select form-select-lg mb-3" name="level" class="form-select is-invalid" id="validationServer04" aria-describedby="validationServer04Feedback" required>
-                        <option selected disabled value="">Select level of user</option>
-                        <option value="admin">Admin</option>
-                        <!-- <option value="trainer">Trainer</option> -->
-                        <option value="customer">Customer</option>
-                    </select>
-                    </div>
-                    <label>Image</label>
-                    <input type="file" name="image" class="form-control" required>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="validationCustom01" class="form-label"> Username </label>
+                            <input type="text" name="username" class="form-control" id="validationCustom01" class="form-control" placeholder="Enter Username" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label> Firstname </label>
+                            <input type="text" name="firstname" class="form-control" placeholder="Enter Username" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label> Lastname </label>
+                            <input type="text" name="lastname" class="form-control" placeholder="Enter Username" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label> Contact number </label>
+                            <input type="text" name="contact" class="form-control" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" placeholder="Enter Username" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Email</label>
+                            <input type="email" name="email" class="form-control checking_email" placeholder="Enter Email" required>
+                            <small class="error_email" style="color: red;"></small>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="validationServer04" class="form-label">Level</label>
+                            <select class="form-select form-select-lg mb-3" name="level" class="form-select is-invalid" id="validationServer04" aria-describedby="validationServer04Feedback" required>
+                                <option selected disabled value="">Select level of user</option>
+                                <option value="admin">Admin</option>
+                                <!-- <option value="trainer">Trainer</option> -->
+                                <option value="customer">Customer</option>
+                            </select>
+                        </div>
+                        <label>Image</label>
+                        <input type="file" name="image" class="form-control" required>
 
-                    <div class="col-md-6">
-                        <label>Password</label>
-                        <input type="password" id="psw" name="password" class="form-control" placeholder="Enter Password" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$" required>
+                        <div class="col-md-6">
+                            <label>Password</label>
+                            <input type="password" id="psw" name="password" class="form-control" placeholder="Enter Password" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$" required>
+                        </div>
+
+                        <!-- check in modal -->
+                        <div id="message">
+                            <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                            <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                            <p id="number" class="invalid">A <b>number</b></p>
+                            <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>Confirm Password</label>
+                            <input type="password" name="confirmpassword" class="form-control" placeholder="Confirm Password" required>
+                        </div>
+
+                        <input type="hidden" name="status" value="Active">
+
                     </div>
-
-                    <!-- check in modal -->
-                    <div id="message">
-                        <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-                        <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
-                        <p id="number" class="invalid">A <b>number</b></p>
-                        <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" name="registerbtn" value="Submit" class="btn btn-success">Save</button>
                     </div>
-
-                    <div class="col-md-6">
-                        <label>Confirm Password</label>
-                        <input type="password" name="confirmpassword" class="form-control" placeholder="Confirm Password" required>
-                    </div>
-
-                    <input type="hidden" name="status" value="Active">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button type="submit" name="registerbtn" value="Submit" class="btn btn-success">Save</button>
-                </div>
             </form>
         </div>
-        </div>
     </div>
+</div>
 </div>
 
 <div class="container-fluid">
     <div class="card shadow mb-4">
-        <div class="card-header py-3" style="background-color: #FEF6FF;">
+        <!-- <div class="card-header py-3" style="background-color: #FEF6FF;">
             <h4 class="m-2 font-weight-bold text-primary">Administrator</h4>
             <h6 class="m-0 font-weight-bold text-success">
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addadminprofile" data-toggle="tooltip" data-placement="top" title="Adding Administrator">
@@ -164,16 +164,20 @@ include('body/navbar.php');
                 <a href="archive.php" class="btn btn-success float-right"><i class="fas fa-file-archive float-right" data-toggle="tooltip" data-placement="top" title="View Archived record">&nbsp; Archive</i></a>
                 </button>
             </h6>
-        </div>
+        </div> -->
+        <div class="card-header py-2 bg-dark">
+                <h4 class="m-2 font-weight-bold text-white">
+                    <a href="archive.php" class="btn btn-white btn btn-sm float-right"><i class="fas fa-archive"></i></a>
+                    <button type="button" class="btn btn-light btn-sm" data-toggle="modal" data-target="#addadminprofile" data-toggle="tooltip" data-placement="top" title="Adding Administrator">
+                    <i class="fa fa-user-plus">Administrator</i></h4>
+                </button>
+            </div>
 
-        <?php
-        $query = "SELECT * FROM tbl_admin WHERE status = 1 ";
-        $query_run = mysqli_query($connection, $query);
-        ?>
         <div class="card-body">
+            <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
-                    <tr style="background-color: #faf1f0;">
+                    <tr>
                         <th>Profile</th>
                         <th>Username</th>
                         <th>Email</th>
@@ -184,9 +188,10 @@ include('body/navbar.php');
                     </tr>
                 </thead>
                 <tbody>
-
-
                     <?php
+                    $query = "SELECT * FROM tbl_admin WHERE status = 1 ";
+                    $query_run = mysqli_query($connection, $query);
+
                     if (mysqli_num_rows($query_run) > 0) {
                         while ($row = mysqli_fetch_assoc($query_run)) { ?>
                             <tr>
@@ -220,8 +225,9 @@ include('body/navbar.php');
                     ?>
                 </tbody>
             </table>
-        </div>
+        </div>    
     </div>
+</div>
 
 
     <!-- User Table -->
@@ -269,72 +275,6 @@ include('body/navbar.php');
             </div>
         </div>
     </div>
-
-    <!-- FOR TRAINER -->
-
-    <!-- <div class="container-fluid">
-    <div class="card shadow mb-4">
-        <div class="card-header py-3" style="background-color: #FEF6FF;">
-            <h4 class="m-2 font-weight-bold text-primary">Trainer</h4>
-            <h6 class="m-0 font-weight-bold text-success">
-            </h6>
-        </div>
-
-        <?php
-        //$query = "SELECT * FROM tbl_admin WHERE level = 'trainer' ";
-        //$query_run = mysqli_query($connection, $query);
-        ?>
-
-        <table class="table-hover" id="dataTable2" style="width:100%">
-            <thead>
-                <tr style="background-color: #faf1f0;">
-                    <th>Profile</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Level</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                //if (mysqli_num_rows($query_run) > 0) {
-                //    while ($row = mysqli_fetch_assoc($query_run)) { 
-                ?>
-                        <tr>
-                            <td> <img src="img/customer_image/<?php // echo $row['image'] 
-                                                                ?>" height="50" width="50" /></td>
-                            <td><?php // echo $row['username']; 
-                                ?></td>
-                            <td><?php // echo $row['email']; 
-                                ?></td>
-                            <td><?php // echo $row['level']; 
-                                ?></td>
-                            <td><?php
-                                //if ($row['status'] == 1) {
-                                //    echo '<p><i class="fa fa-circle text-success"></i><a href="status.php?ID=' . $row['ID'] . '&status=0">Enable</a></p>';
-                                //} else {
-                                //    echo '<p><i class="fa fa-circle text-danger"></i><a href="status.php?ID=' . $row['ID'] . '&status=1">Disable</a></p>';
-                                //}
-                                ?></td>
-                            <td>
-                                <form action="admin_edit.php" method="POST">
-                                    <input type="hidden" name="edit_id" value="<?php // echo $row['ID']; 
-                                                                                ?>">
-                                    <button type="submit" name="edit_btn" class="btn btn-success btn-sm"><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Update"></i></button>
-                                </form>
-                            </td>
-                        </tr>
-                <?php
-                //   }
-                // } else {
-                //    echo "No Record Found";
-                //}
-                ?>
-            </tbody>
-        </table>
-    </div>
-</div> -->
 </div>
 </div>
 
@@ -400,25 +340,25 @@ include('body/navbar.php');
 
 <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
-(function () {
-  'use strict'
+    (function() {
+        'use strict'
 
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll('.needs-validation')
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
 
-  // Loop over them and prevent submission
-  Array.prototype.slice.call(forms)
-    .forEach(function (form) {
-      form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
 
-        form.classList.add('was-validated')
-      }, false)
-    })
-})()
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
 </script>
 
 <script src="material/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -56,25 +56,21 @@ if (!isset($_GET["rid"])) {
 <body>
     <div class="container">
         <div class="col-xl-12 col-md-12 mb-12">
-            <div class="card border shadow h-100 py-2">
+            <div class="card border shadow h-100 py-0">
+            <div class="modal-header bg-dark">
+            <h5 class="modal-title" id="exampleModalLabel" style="color: white;">Reservation Information<small> &nbsp; <?php echo  $curdate; ?> </small></h5>
+        </div>
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                <h1 class="page-header">
-                                    Reservation Information<small> &nbsp; <?php echo  $curdate; ?> </small>
-                                </h1>
-                            </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                 <div class="row">
-                                    <div class="col-md-5">
-
-                                    </div>
                                     <div class="col-md-12 col-sm-12">
                                         <div class="panel panel-info">
                                             <div class="panel-heading">
                                                 Booking Confirmation
                                             </div>
+                                            <br>
                                             <div class="panel-body">
                                                 <div class="table-responsive">
                                                     <table class="table">

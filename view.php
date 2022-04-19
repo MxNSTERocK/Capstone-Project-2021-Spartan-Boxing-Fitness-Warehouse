@@ -41,10 +41,12 @@ if (isset($_POST['view'])) {
 
         <center>
             <div class="col-xl-8 col-md-7 mb-9">
+            <div class="card-header py-2 bg-dark">
+                <h4 class="m-2 font-weight-bold text-white">
+                <?php echo $row['firstname'] . " " . $row['lastname']; ?></h4>
+            </div>
                 <div class="card border shadow h-100 py-2">
-                    <div class="card-header py-3" style="background-color: #FEF6FF;">
-                        <h4 class="m-0 font-weight-bold text-primary"><?php echo $row['firstname'] . " " . $row['lastname']; ?></h4>
-                    </div>
+
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">

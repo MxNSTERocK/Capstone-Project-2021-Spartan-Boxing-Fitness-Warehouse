@@ -48,25 +48,30 @@ include('body/header.php');
                                     $('.alert').alert()
                                 </script>
 
-                                <form class="user" action="code.php" method="POST">
+                                <form class="row g-1 needs-validation" novalidate action="code.php" method="POST">
                                     <div class="form-group">
-                                        <input type="email" name="email" class="form-control form-control-user" placeholder="Enter your Email address" required>
+                                        <input type="email" name="email" class="form-control" id="validationCustom01" placeholder="Enter your Email address" required>
+                                        <div class="invalid-feedback">
+                                             <small> Invalid Email address </small>
+                                        </div>
                                     </div>
+
                                     <div class="form-group">
-                                        <input type="password" name="password" id="valid" class="form-control form-control-user" placeholder="Enter your password" pattern="^\S+$" minlength="8" autofocus required>
-                                        <span id="valid" class="validity"></span>
-                                    </div>
-                                    <br>
+                                        <input type="password" name="password" id="valid" class="form-control" id="validationCustom02" placeholder="Enter your password" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$" minlength="8" required>
+                                        <div class="invalid-feedback">
+                                           <small> 8 minimun character </small>
+                                        </div>
+                                        <input type="checkbox" onclick="myFunction()"> &nbsp; Show Password
 
-                                    <a href="forgot/forgot.php">
-                                        <center>Forgot Password</center>
-                                    </a>
+                                        <p>
+                                            <center><a href="forgot/forgot.php">Forgot Password</a></center>
+                                        </p>
 
-                                    <button type="submit" name="login_btn" class="btn btn-primary btn-user btn-block">
-                                        Login </button>
+                                        <button type="submit" name="login_btn" class="btn btn-primary btn-user btn-block">
+                                            Login </button>
                                 </form>
-                                <p>
-                                    <a href="register.php">
+
+                                <p><a href="register.php">
                                         <center>Click here to register!</center>
                                     </a>
                                     <?php
@@ -87,25 +92,40 @@ include('body/header.php');
 
 <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
-(function () {
-  'use strict'
+    (function() {
+        'use strict'
 
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll('.needs-validation')
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
 
-  // Loop over them and prevent submission
-  Array.prototype.slice.call(forms)
-    .forEach(function (form) {
-      form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
 
-        form.classList.add('was-validated')
-      }, false)
-    })
-})()
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
 </script>
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("valid");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
+
+
+
+
 
 <?php include('body/script.php') ?>

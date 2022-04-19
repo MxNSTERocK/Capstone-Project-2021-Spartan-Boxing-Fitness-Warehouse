@@ -25,24 +25,18 @@ include('body/navbar.php');
 
 <body>
 
-
     <div class="container-fluid">
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h4 class="m-2 font-weight-bold text-primary">Archive</h4>
-                <h6 class="m-0 font-weight-bold text-success">
-                    <a href="admin.php" class="btn btn-success float-right"><i class="fas fa-home"></i></a>
-                </h6>
+            <div class="card-header py-2 bg-dark">
+                <h4 class="m-2 font-weight-bold text-white">Archive
+                    <a href="admin.php" class="btn btn-white btn btn-sm float-right"><i class="fas fa-home"></i></a></h4>
             </div>
 
             <div class="card-body">
-
                 <div class="table-responsive">
                     <div class="col-md-12 well">
-
-                        <br /><br />
                         <table id="example1" class="table table-bordered">
-                            <thead class="alert-info">
+                            <thead style="background-color: #faf1f0;">
                                 <tr>
                                     <th>Profile</th>
                                     <th>Name</th>

@@ -107,13 +107,19 @@ include('body/navbar.php');
 
     <div class="container-fluid">
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
+            <!-- <div class="card-header py-3">
                 <h4 class="m-2 font-weight-bold text-primary">Membership</h4>
                 <h6 class="m-0 font-weight-bold text-success">
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addmember">
                         <i class="fa fa-user-plus"></i>
                     </button>
                 </h6>
+            </div>  -->
+            <div class="card-header py-2 bg-dark">
+                <h4 class="m-2 font-weight-bold text-white">
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addmember">Membership
+                        <i class="fa fa-user-plus"></i>
+                    </button>
             </div>
             <div class="card-body">
 
